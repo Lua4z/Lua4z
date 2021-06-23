@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: Running Lua programs on z/OS</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><a href="../manual/install.md.html"><span >Installing</span></a></li>
+      <li><span ><strong>Running Lua programs on z/OS</strong></span>
+   <ul>
+     <li><a href="#MVS_versus_z_OS_UNIX">MVS versus z/OS UNIX </a></li>
+     <li><a href="#Square_brackets">Square brackets </a></li>
+     <li><a href="#TSO_E_foreground">TSO/E foreground </a></li>
+     <li><a href="#Batch">Batch </a></li>
+     <li><a href="#z_OS_UNIX_dependencies_when_running_on_MVS">z/OS UNIX dependencies when running on MVS </a></li>
+     <li><a href="#z_OS_UNIX">z/OS UNIX </a></li>
+</ul>
+  </li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><a href="../manual/rexx.md.html"><span >Lua for REXX developers</span></a></li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><a href="../modules/ispf.lmmlist.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf.lmmlist</span></a></li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><a href="../modules/coroutine.html"><span class='module-std' title='Lua standard library'>coroutine</span></a></li>
+      <li><a href="../modules/debug.html"><span class='module-std' title='Lua standard library'>debug</span></a></li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><a href="../modules/iconv.html"><span class='module-ext title='Lua extension'>iconv</span></a></li>
+      <li><a href="../modules/io.html"><span class='module-std' title='Lua standard library'>io</span></a></li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><a href="../modules/lpeg.html"><span class='module-ext title='Lua extension'>lpeg</span></a></li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><a href="../modules/os.html"><span class='module-std' title='Lua standard library'>os</span></a></li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><a href="../modules/string.html"><span class='module-std' title='Lua standard library'>string</span></a></li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><a href="../examples/iconvs.lua.html"><span >iconvs.lua</span></a></li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><a href="../examples/pdsdir.lua.html"><span >pdsdir.lua</span></a></li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+</div>
+<div id="content">
+
+<h1>Running Lua programs on z/OS</h1>
+
+
+<p>To run a Lua program, use the Lua stand-alone interpreter. z/OS-specific details are described here.
+<span class="sidebar">For platform-independent information about running Lua programs,
+see the <a href="http://www.lua.org/manual/5.1/manual.html#6">Lua Reference Manual</a>.</span></p>
+
+<p><a name="MVS_versus_z_OS_UNIX"></a></p>
+<h2>MVS versus z/OS UNIX</h2>
+
+<p>Lua4z includes two versions of the Lua interpreter:</p>
+
+<ul>
+    <li>A version for running Lua programs on z/OS UNIX</li>
+    <li>A version for running Lua programs on MVS (including TSO/E)</li>
+</ul>
+
+<p>The z/OS UNIX version is installed in a z/OS UNIX directory.
+The features of the Lua interpreter on z/OS UNIX match the features on other, non-z/OS platforms.</p>
+
+<p>The MVS version is installed in an MVS program library that might have been added to the LINKLIST concatenation.
+The MVS version of the Lua interpreter introduces the following features:</p>
+
+<ul>
+    <li>LUA ddname</li>
+    <li>LUACONF member</li>
+</ul>
+
+<h3>LUA ddname</h3>
+
+<p>The name of the Lua program that you specify to the MVS version of the Lua interpreter can be the name of a member in an MVS data set (PDS or library).
+That data set must belong to the concatenation specified by the LUA ddname.</p>
+
+<p>In TSO/E (including ISPF), you would typically define the LUA ddname in your TSO/E logon procedure. For example:</p>
+
+
+<pre>
+//LUA      DD  DISP=SHR,DSN=&amp;SYSUID..LUA
+</pre>
+
+<p>You can also allocate the LUA ddname dynamically in TSO/E. For example, suppose you want to run the Lua program MYID.LUA(HELLO), but the LUA ddname does not refer to MYID.LUA.
+You can enter the following TSO/E command to reallocate the ddname:</p>
+
+
+<pre>
+ALLOC F(LUA) DA(<span class="string">'MYID.LUA'</span>) SHR REUSE
+</pre>
+
+<p>and then enter the following command to run the program:</p>
+
+
+<pre>
+LUA HELLO
+</pre>
+
+<p><a name="luaconf"></a></p>
+<h3>LUACONF member</h3>
+
+<p>If a member named LUACONF exists in the LUA ddname concatenation, then the MVS version of the Lua interpreter uses that member
+to set the values of the LIBPATH, LUA_CPATH, and LUA_PATH environment variables.</p>
+
+<p>For information about how Lua uses the LUA_CPATH and LUA_PATH variables, see the <a href="http://www.lua.org/manual/5.1/manual.html">Lua Reference Manual</a>.</p>
+
+<p>The LIBPATH variable is not specific to Lua. LIBPATH is the z/OS UNIX environment variable that defines the dynamic link library (DLL) search path.
+LIBPATH must refer to the Lua4z lib directory that contains liblua.so, which is the shared object file that contains the Lua standard libraries.
+(Lua programs running on MVS use the LIBLUA load module stored in the same MVS data set as the interpreter load module, LUA.)</p>
+
+<p>The contents of LUACONF has the following format:</p>
+
+
+<pre>
+<code>LUA_HOME = "<var>value</var>"
+LIBPATH = "<var>value</var>"
+LUA_CPATH = "<var>value</var>"
+LUA_PATH = "<var>value</var>"</code>
+</pre>
+
+
+<p>where each line is optional.</p>
+
+<p>LUA_HOME is not an environment variable; it is a special variable that you can specify in LUACONF as a shortcut for defining LIBPATH, LUA_CPATH, and LUA_PATH.</p>
+
+<p>If you specify LUA_HOME, any other definitions in LUACONF are ignored.</p>
+
+<p>Specifying the following single line in LUACONF:</p>
+
+
+<pre>
+<code>LUA_HOME = "<var>home</var>"</code>
+</pre>
+
+
+<p>is equivalent to specifying the following lines:</p>
+
+
+<pre>
+<code>LIBPATH = "<var>home</var>/lib"
+LUA_CPATH = "./?.so;" ..
+"<var>home</var>/lib/lua/5.1/?.so;" ..
+"<var>home</var>/lib/lua/5.1/loadall.so;" ..
+"//?"
+LUA_PATH = "./?.lua;" ..
+"<var>home</var>/share/lua/5.1/?.lua;" ..
+"<var>home</var>/share/lua/5.1/?/init.lua;" ..
+"<var>home</var>/lib/lua/5.1/?.lua;" ..
+"<var>home</var>/lib/lua/5.1/?/init.lua;\" ..
+"//DD:LUA(?)"</code>
+</pre>
+
+
+<p>Lua4z initializes the LIBPATH, LUA_CPATH, and LUA_PATH variables in LUACONF with the following default values that refer to <code>/usr/local</code>:</p>
+
+
+<pre>
+<code>LIBPATH = "/usr/local/lib"
+LUA_CPATH = "./?.so;" ..
+"/usr/local/lib/lua/5.1/?.so;" ..
+"/usr/local/lib/lua/5.1/loadall.so;" ..
+"//?"
+LUA_PATH = "./?.lua;" ..
+"/usr/local/share/lua/5.1/?.lua;" ..
+"/usr/local/share/lua/5.1/?/init.lua;" ..
+"/usr/local/lib/lua/5.1/?.lua;" ..
+"/usr/local/lib/lua/5.1/?/init.lua;" ..
+"//DD:LUA(?)"</code>
+</pre>
+
+
+<p>You can use the Lua string concatenation operator to prepend or append to these default values. For example:</p>
+
+
+<pre>
+<code>LIBPATH = LIBPATH .. ":/u/myid/lib"</code>
+</pre>
+
+
+<p>is equivalent to:</p>
+
+
+<pre>
+<code>LIBPATH = "/usr/local/lib:/u/myid/lib"</code>
+</pre>
+
+
+<p>To check the values of these environment variables in a running Lua program, run <a href="../examples/paths.lua.html#">paths.lua</a> supplied in the Lua4z examples directory.</p>
+
+<p><a name="Square_brackets"></a></p>
+<h2>Square brackets</h2>
+
+<p>Lua4z (both the MVS and z/OS UNIX versions of the Lua interpreter) works with Lua programs encoded using EBCDIC code page 1047 or 037.</p>
+
+<p>Lua4z includes code to tolerate square brackets that are encoded using EBCDIC code page 037. Rather than rejecting 037-encoded square brackets as garbled input,
+Lua4z interprets them as square brackets.</p>
+
+<p>Consider configuring your 3270 terminal emulator to use host code page 1047 rather than 037.
+(Although you might have a specific reason for using 037, which is why Lua4z tolerates square brackets encoded in that code page.)
+<span class="sidebar">Character encoding issues are beyond this scope of this documentation,
+but the point is this: other language interpreters might expect 1047-encoded source,
+and reject 037-encoded square brackets as being garbled.</span></p>
+
+<p><a name="TSO_E_foreground"></a></p>
+<h2>TSO/E foreground</h2>
+
+<h3>Member in the LUA ddname concatenation</h3>
+
+<p>Suppose you have a member named MYID.LUA(HELLO) containing the following Lua program:</p>
+
+
+<pre>
+<span class="global">print</span>(<span class="string">"Hello, World!"</span>)
+</pre>
+
+<p>where the MYID.LUA library is in the LUA ddname concatenation.</p>
+
+<p>To run the Lua program in TSO/E foreground, enter the following command at a TSO/E or ISPF command prompt:</p>
+
+
+<pre>
+LUA HELLO
+</pre>
+
+<p><span class="sidebar">You do not need to prefix <code>LUA</code> with <code>TSO</code> at an ISPF command prompt: the Lua4z installation procedure
+adds a LUA verb to an ISPF command table.</span></p>
+
+<h3>MVS data set not in the LUA ddname</h3>
+
+<p>To run a Lua program that is stored in an MVS data set that is not in the LUA ddname concatenation,
+specify two slashes, then the fully qualified data set name enclosed in single quotation marks, all enclosed in double quotation marks:</p>
+
+
+<pre>
+LUA <span class="string">"//'HERID.LUA(HELLO)'"</span>
+</pre>
+
+<h3>z/OS UNIX file</h3>
+
+<p>To run a Lua program that is stored in a z/OS UNIX file, specify the absolute path of the Lua program in quotation marks:</p>
+
+
+<pre>
+LUA <span class="string">"/usr/local/lua4z/doc/examples/hello.lua"</span>
+</pre>
+
+<h3>POSIX functions</h3>
+
+<p>If your Lua program uses POSIX functions, enter <code>LUAP</code> instead of <code>LUA</code>.</p>
+
+<p>LUAP invokes the Lua interpreter with the Language Environment runtime option
+<a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ceea300/clposix.htm"><code>POSIX(ON)</code></a>.</p>
+
+<h3>Interactive mode</h3>
+
+<p>To start the Lua interpreter in interactive mode, enter <code>LUA</code> or <code>LUAP</code> without any parameters.</p>
+
+<p>To exit interactive mode, either:</p>
+
+<ul>
+    <li>Enter <code>os.exit()</code></li>
+    <li>Press the System Attention key</li>
+</ul>
+
+<p><a name="Batch"></a></p>
+<h2>Batch</h2>
+
+<p>The following JCL runs the Lua program MYID.LUA(HELLO):</p>
+
+
+<pre>
+<code>/MYLUA  JOB <var>job card details</var>
+//LUA      EXEC PGM=LUA,PARMDD=SYSIN
+//SYSPRINT DD SYSOUT=*
+//LUA      DD DISP=SHR,DSN=MYID.LUA
+//SYSIN    DD *
+hello
+/*</code>
+</pre>
+
+
+<p>If your program has particular runtime requirements, then you can specify
+<a href="http://www-01.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ceea300/ceea30010.htm">Language Environment runtime options</a>
+before the Lua program name, separated by a slash.</p>
+
+<p>For example, if your program uses POSIX functions, specify
+<a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ceea300/clposix.htm"><code>POSIX(ON)</code></a>:</p>
+
+
+<pre>
+<code><span class="highlight">posix(on) /</span> hello -n 1234 //lua(config)</code>
+</pre>
+
+
+<p>In the previous example, <code>-n 1234 //lua(config)</code> are arguments to the Lua program, where <code>//lua(config)</code> is a member
+in the LUA ddname concatenation. In this example, since the LUA ddname in the JCL specifies only one data set, <code>//lua(config)</code>
+refers to the member MYID.LUA(CONFIG).</p>
+
+<p>The previous JCL assumes that the program library that contains the Lua interpreter is in the LINKLIST concatenation,
+as described in the Lua4z installation instructions.
+If the Lua interpreter is not in LINKLIST, you need to specify its program library in the STEPLIB ddname:</p>
+
+
+<pre>
+//STEPLIB  DD DISP=SHR,DSN=SYS1.LUA4Z.LOADLIB
+</pre>
+
+<p><a name="z_OS_UNIX_dependencies_when_running_on_MVS"></a></p>
+<h2>z/OS UNIX dependencies when running on MVS</h2>
+
+<h3>No z/OS UNIX dependencies when using standard libraries only</h3>
+
+<p>If you run a Lua program on MVS (for example, in an MVS batch job or from an ISPF command prompt)
+and that program uses only the core Lua programming language and standard libraries, then there are no dependencies on z/OS UNIX files.
+The Lua program relies on the MVS version of the Lua interpreter and standard libraries that are installed in an MVS data set.</p>
+
+<p>In this case:</p>
+
+<ul>
+    <li><p>LIBPATH is not relevant because the MVS version of the Lua interpreter does not need that variable to find the
+    MVS load library member LIBLUA; that member is in the same MVS data set as the interpreter.</p></li>
+    <li><p>LUA_CPATH is not relevant because the <code>require</code> function does not need to find any .so files.</p></li>
+    <li><p>The LUA_PATH environment variable is relevant only if your Lua program uses the <code>require</code> function to refer to another Lua program.</p></li>
+</ul>
+
+<h3>z/OS UNIX dependencies when using Lua extensions</h3>
+
+<p>If you run a Lua program on MVS and that program uses any of the Lua extensions included with Lua4z, then you need
+files that are stored in the z/OS UNIX file system. Specifically, shared object (.so) files supplied
+in the Lua4z lib directory, Lua program (.lua) files supplied in the Lua4z share directory, or both, according to each Lua extension.
+Furthermore, the Lua extension .so files refer to the liblua.so file on z/OS UNIX, not the
+MVS load library member LIBLUA that is used by the running MVS version of the Lua interpreter.</p>
+
+<p>In this case:</p>
+
+<ul>
+    <li><p>LIBPATH must refer to the Lua4z lib directory because it contains liblua.so.</p></li>
+    <li><p>LUA_CPATH must refer to the Lua extension .so files supplied in the Lua4z lib/lua/5.1 directory.</p></li>
+    <li><p>The LUA_PATH environment variable must refer to the Lua extension .lua files supplied in the Lua4z share/lua/5.1 directory.</p></li>
+</ul>
+
+
+<p><a name="z_OS_UNIX"></a></p>
+<h2>z/OS UNIX</h2>
+
+<p>To make a Lua program an executable UNIX program, use <code>chmod +x</code> and add the following shebang line to the start of the program:</p>
+
+
+<pre>
+#!/usr/<span class="keyword">local</span>/bin/lua
+</pre>
+
+<p>where <code>/usr/local/bin/lua</code> is the location of the Lua interpreter.</p>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>

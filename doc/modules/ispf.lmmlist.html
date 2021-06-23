@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: ispf.lmmlist</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><span class='lua4z-only' title='Lua4z-only extension'><strong>ispf.lmmlist</strong></span>
+   <ul>
+     <li><a href="#Functions">Functions</a></li>
+</ul>
+  </li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><a href="../modules/coroutine.html"><span class='module-std' title='Lua standard library'>coroutine</span></a></li>
+      <li><a href="../modules/debug.html"><span class='module-std' title='Lua standard library'>debug</span></a></li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><a href="../modules/iconv.html"><span class='module-ext title='Lua extension'>iconv</span></a></li>
+      <li><a href="../modules/io.html"><span class='module-std' title='Lua standard library'>io</span></a></li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><a href="../modules/lpeg.html"><span class='module-ext title='Lua extension'>lpeg</span></a></li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><a href="../modules/os.html"><span class='module-std' title='Lua standard library'>os</span></a></li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><a href="../modules/string.html"><span class='module-std' title='Lua standard library'>string</span></a></li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><a href="../manual/install.md.html"><span >Installing</span></a></li>
+      <li><a href="../manual/using.md.html"><span >Running Lua programs on z/OS</span></a></li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><a href="../manual/rexx.md.html"><span >Lua for REXX developers</span></a></li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><a href="../examples/iconvs.lua.html"><span >iconvs.lua</span></a></li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><a href="../examples/pdsdir.lua.html"><span >pdsdir.lua</span></a></li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+</div>
+<div id="content">
+<h1>Module <code>ispf.lmmlist</code></h1>
+<p>Classes for ISPF member lists.</p>
+<p>
+
+</p>
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#open">open (dsname, enq)</a></td>
+	<td class="summary">Initializes and opens a PDS library.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#close">close ()</a></td>
+	<td class="summary">Closes and frees the library.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#list">list ()</a></td>
+	<td class="summary">Gets the list of members in a library.</td>
+	</tr>
+</table>
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "open"></a>
+    <strong>open (dsname, enq)</strong>
+    </dt>
+    <dd>
+    Initializes and opens a PDS library. </p>
+
+<p> You can call <code>lmmlist(...)</code> as shorthand for <code>lmmlist.open(...)</code>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dsname</span>
+
+
+
+        </li>
+        <li><span class="parameter">enq</span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        A table that represents the new member list.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="comment">-- Print the member names of the specifed library
+</span> <span class="comment">-- Library dsname supplied as command-line argument
+</span> <span class="comment">-- For example: LUA 'MYID.PDS'
+</span> <span class="comment">-- (single quotes indicate fully qualified dsname)
+</span> <span class="keyword">local</span> lmmlist = <span class="global">require</span>(<span class="string">"ispf.lmmlist"</span>)
+
+ <span class="keyword">local</span> dsname = arg[<span class="number">1</span>]
+ <span class="keyword">local</span> enq = <span class="string">"shr"</span>
+
+ lmmlist(dsname, enq):
+   map( <span class="keyword">function</span> (member) <span class="global">print</span>(member.name) <span class="keyword">end</span> )</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "close"></a>
+    <strong>close ()</strong>
+    </dt>
+    <dd>
+    Closes and frees the library.
+ <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.f54sg00/lmclose.htm"><strong>LMCLOSE</strong> z/OS ISPF service</a>
+ followed by the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.f54sg00/lmfree.htm"><strong>LMFREE</strong> z/OS ISPF service</a>.</span>
+
+    </ul>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The return code from either the LMCLOSE or LMFREE service.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "list"></a>
+    <strong>list ()</strong>
+    </dt>
+    <dd>
+    Gets the list of members in a library. </p>
+
+<p> <span class="sidebar">This function calls various z/OS ISPF services.</span>
+
+    </ul>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        An iterator function that, each time it is called, returns the next member.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> lmmlist = <span class="global">require</span>(<span class="string">"ispf.lmmlist"</span>)
+ <span class="keyword">local</span> dsname = <span class="string">"MYID.PDS"</span>
+ <span class="keyword">local</span> library = lmmlist.open(dsname, <span class="string">"SHR"</span>)
+ <span class="keyword">for</span> member <span class="keyword">in</span> library:list() <span class="keyword">do</span>
+   <span class="global">print</span>(member.name)
+ <span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>

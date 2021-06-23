@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: coroutine</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><a href="../modules/ispf.lmmlist.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf.lmmlist</span></a></li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><span class='module-std' title='Lua standard library'><strong>coroutine</strong></span>
+   <ul>
+     <li><a href="#Functions">Functions</a></li>
+</ul>
+  </li>
+      <li><a href="../modules/debug.html"><span class='module-std' title='Lua standard library'>debug</span></a></li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><a href="../modules/iconv.html"><span class='module-ext title='Lua extension'>iconv</span></a></li>
+      <li><a href="../modules/io.html"><span class='module-std' title='Lua standard library'>io</span></a></li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><a href="../modules/lpeg.html"><span class='module-ext title='Lua extension'>lpeg</span></a></li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><a href="../modules/os.html"><span class='module-std' title='Lua standard library'>os</span></a></li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><a href="../modules/string.html"><span class='module-std' title='Lua standard library'>string</span></a></li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><a href="../manual/install.md.html"><span >Installing</span></a></li>
+      <li><a href="../manual/using.md.html"><span >Running Lua programs on z/OS</span></a></li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><a href="../manual/rexx.md.html"><span >Lua for REXX developers</span></a></li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><a href="../examples/iconvs.lua.html"><span >iconvs.lua</span></a></li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><a href="../examples/pdsdir.lua.html"><span >pdsdir.lua</span></a></li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+</div>
+<div id="content">
+<h1>Module <code>coroutine</code></h1>
+<p>Coroutine functions: a sub-library of the basic library, in the table <code>coroutine</code>.</p>
+<p>
+
+</p>
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#create">create (f)</a></td>
+	<td class="summary">Creates a new coroutine, with body <code>f</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#resume">resume (co, ...)</a></td>
+	<td class="summary">Starts or continues the execution of coroutine <code>co</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#running">running ()</a></td>
+	<td class="summary">Returns the running coroutine.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#status">status (co)</a></td>
+	<td class="summary">Returns the status of coroutine <code>co</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#wrap">wrap (f)</a></td>
+	<td class="summary">Creates a new coroutine, with body <code>f</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#yield">yield (...)</a></td>
+	<td class="summary">Suspends the execution of the calling coroutine.</td>
+	</tr>
+</table>
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "create"></a>
+    <strong>create (f)</strong>
+    </dt>
+    <dd>
+    Creates a new coroutine, with body <code>f</code>.  <code>f</code> must be a Lua
+ function. Returns this new coroutine, an object with type <code>"thread"</code>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "resume"></a>
+    <strong>resume (co, ...)</strong>
+    </dt>
+    <dd>
+    Starts or continues the execution of coroutine <code>co</code>.  The first time
+ you resume a coroutine, it starts running its body. The values
+ ... are passed as the arguments to the body function. If the coroutine
+ has yielded, <code>resume</code> restarts it; the values  ... are passed
+ as the results from the yield.
+ If the coroutine runs without any errors, <code>resume</code> returns true plus any
+ values passed to <code>yield</code> (if the coroutine yields) or any values returned
+ by the body function (if the coroutine terminates). If there is any error,
+ <code>resume</code> returns false plus the error message.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">co</span>
+
+
+
+        </li>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "running"></a>
+    <strong>running ()</strong>
+    </dt>
+    <dd>
+    Returns the running coroutine.  Or nil when called by the main thread.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "status"></a>
+    <strong>status (co)</strong>
+    </dt>
+    <dd>
+    Returns the status of coroutine <code>co</code>.  Result is a string: <code>"running"</code>, if
+ the coroutine is running (that is, it called <code>status</code>); <code>"suspended"</code>, if
+ the coroutine is suspended in a call to <code>yield</code>, or if it has not started
+ running yet; <code>"normal"</code> if the coroutine is active but not running (that
+ is, it has resumed another coroutine); and <code>"dead"</code> if the coroutine has
+ finished its body function, or if it has stopped with an error.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">co</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "wrap"></a>
+    <strong>wrap (f)</strong>
+    </dt>
+    <dd>
+    Creates a new coroutine, with body <code>f</code>.  <code>f</code> must be a Lua
+ function. Returns a function that resumes the coroutine each time it is
+ called. Any arguments passed to the function behave as the extra arguments to
+ <code>resume</code>. Returns the same values returned by <code>resume</code>, except the first
+ boolean. In case of error, propagates the error.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "yield"></a>
+    <strong>yield (...)</strong>
+    </dt>
+    <dd>
+    Suspends the execution of the calling coroutine.  The coroutine cannot
+ be running a C function, a metamethod, or an iterator. Any arguments to
+ <code>yield</code> are passed as extra results to <code>resume</code>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>

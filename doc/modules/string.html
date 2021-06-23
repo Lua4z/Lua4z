@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: string</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><a href="../modules/ispf.lmmlist.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf.lmmlist</span></a></li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><a href="../modules/coroutine.html"><span class='module-std' title='Lua standard library'>coroutine</span></a></li>
+      <li><a href="../modules/debug.html"><span class='module-std' title='Lua standard library'>debug</span></a></li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><a href="../modules/iconv.html"><span class='module-ext title='Lua extension'>iconv</span></a></li>
+      <li><a href="../modules/io.html"><span class='module-std' title='Lua standard library'>io</span></a></li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><a href="../modules/lpeg.html"><span class='module-ext title='Lua extension'>lpeg</span></a></li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><a href="../modules/os.html"><span class='module-std' title='Lua standard library'>os</span></a></li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><span class='module-std' title='Lua standard library'><strong>string</strong></span>
+   <ul>
+     <li><a href="#Functions">Functions</a></li>
+</ul>
+  </li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><a href="../manual/install.md.html"><span >Installing</span></a></li>
+      <li><a href="../manual/using.md.html"><span >Running Lua programs on z/OS</span></a></li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><a href="../manual/rexx.md.html"><span >Lua for REXX developers</span></a></li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><a href="../examples/iconvs.lua.html"><span >iconvs.lua</span></a></li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><a href="../examples/pdsdir.lua.html"><span >pdsdir.lua</span></a></li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+</div>
+<div id="content">
+<h1>Module <code>string</code></h1>
+<p>String standard library.</p>
+<p> Lua4z adds the
+ <a href="http://www.lua.org/manual/5.2/manual.html#6.4.1"><code>%g</code> character class</a>
+ (all printable characters except space), backported from Lua 5.2, to
+ the <a href="http://www.lua.org/manual/5.1/manual.html#5.4.1">string patterns allowed in Lua 5.1</a>.</p>
+
+<p> For more string functions, see the stringx library of the <a href="http://stevedonovan.github.io/Penlight/">Penlight</a> extension.</p>
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#a2e"><span class="lua4z-only" title="Lua4z-only extension">a2e (s)</span></a></td>
+	<td class="summary">Converts the character encoding of a string
+ from ISO8859-1
+ to EBCDIC code page IBM-1047 regardless of the current locale.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#atoe"><span class="lua4z-only" title="Lua4z-only extension">atoe (s)</span></a></td>
+	<td class="summary">Converts the character encoding of a string
+ from ISO8859-1
+ to the EBCDIC code page of the current locale.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#byte">byte (s, i, j)</a></td>
+	<td class="summary">Returns the internal numerical codes of the characters <code>s[i]</code>, <code>s[i+1]</code>,
+ ..., <code>s[j]</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#char">char (...)</a></td>
+	<td class="summary">Receives zero or more integers.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#dump">dump (function)</a></td>
+	<td class="summary">Returns a string containing a binary representation of the given
+ function, so that a later <code>loadstring</code> on this string returns a copy of
+ the function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#e2a"><span class="lua4z-only" title="Lua4z-only extension">e2a (s)</span></a></td>
+	<td class="summary">Converts the character encoding of a string
+ from EBCDIC
+ to ISO8859-1,
+ interpreting the EBCDIC characters according to
+ code page IBM-1047 regardless of the current locale.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#etoa"><span class="lua4z-only" title="Lua4z-only extension">etoa (s)</span></a></td>
+	<td class="summary">Converts the character encoding of a string
+ from EBCDIC
+ to ISO8859-1,
+ interpreting the EBCDIC characters according to
+ the code page of the current locale.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#find">find (s, pattern, init, plain)</a></td>
+	<td class="summary">Looks for the first match of <code>pattern</code> in the string <code>s</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#format">format (formatstring, ...)</a></td>
+	<td class="summary">Returns a formatted version of its variable number of arguments following
+ the description given in its first argument (which must be a string).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#gmatch">gmatch (s, pattern)</a></td>
+	<td class="summary">Returns an iterator function that, each time it is called, returns the
+ next captures from <code>pattern</code> over string <code>s</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#gsub">gsub (s, pattern, repl, n)</a></td>
+	<td class="summary">Returns a copy of <code>s</code> in which all (or the first <code>n</code>, if given)
+ occurrences of the <code>pattern</code> have been replaced by a replacement string
+ specified by <code>repl</code>, which can be a string, a table, or a function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#len">len (s)</a></td>
+	<td class="summary">Receives a string and returns its length.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#left"><span class="lua4z-only" title="Lua4z-only extension">left (s, length, pad)</span></a></td>
+	<td class="summary">Gets a substring starting from the left side of a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#lower">lower (s)</a></td>
+	<td class="summary">Receives a string and returns a copy of this string with all uppercase
+ letters changed to lowercase.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#match">match (s, pattern, init)</a></td>
+	<td class="summary">Looks for the first <em>match</em> of <code>pattern</code> in the string <code>s</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rep">rep (s, n)</a></td>
+	<td class="summary">Returns a string that is the concatenation of <code>n</code> copies of the string
+ <code>s</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#reverse">reverse (s)</a></td>
+	<td class="summary">Returns a string that is the string <code>s</code> reversed.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#right"><span class="lua4z-only" title="Lua4z-only extension">right (s, length, pad)</span></a></td>
+	<td class="summary">Gets a substring starting from the right side of a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#split"><span class="lua4z-only" title="Lua4z-only extension">split (s, delimiters)</span></a></td>
+	<td class="summary">Splits a string at delimiters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sub">sub (s, i, j)</a></td>
+	<td class="summary">Returns the substring of <code>s</code> that starts at <code>i</code> and continues until
+ <code>j</code>; <code>i</code> and <code>j</code> can be negative.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#substr"><span class="lua4z-only" title="Lua4z-only extension">substr (s, n, length, pad)</span></a></td>
+	<td class="summary">Gets a substring starting from the <code>n</code>th character of a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#subword"><span class="lua4z-only" title="Lua4z-only extension">subword (s, n, length)</span></a></td>
+	<td class="summary">Gets words starting from the <code>n</code>th word of a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#upper">upper (s)</a></td>
+	<td class="summary">Receives a string and returns a copy of this string with all lowercase
+ letters changed to uppercase.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#word"><span class="lua4z-only" title="Lua4z-only extension">word (s, n)</span></a></td>
+	<td class="summary">Gets the <code>n</code>th word from a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#wordindex"><span class="lua4z-only" title="Lua4z-only extension">wordindex (s, n)</span></a></td>
+	<td class="summary">Finds the start position of the <code>n</code>th word in a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#wordlength"><span class="lua4z-only" title="Lua4z-only extension">wordlength (s, n)</span></a></td>
+	<td class="summary">Gets the length of the <code>n</code>th word in a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#wordpos"><span class="lua4z-only" title="Lua4z-only extension">wordpos (word, s, start)</span></a></td>
+	<td class="summary">Finds a word in a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#words"><span class="lua4z-only" title="Lua4z-only extension">words (s)</span></a></td>
+	<td class="summary">Counts the words in a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#x2c"><span class="lua4z-only" title="Lua4z-only extension">x2c (hexstring)</span></a></td>
+	<td class="summary">Converts a string of characters that represent hexadecimal EBCDIC code points
+ into the corresponding string of EBCDIC characters.</td>
+	</tr>
+</table>
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "a2e"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">a2e (s)</span></strong>
+    </dt>
+    <dd>
+    Converts the character encoding of a string
+ from ISO8859-1
+ to EBCDIC code page IBM-1047 regardless of the current locale. </p>
+
+<p> <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxbd00/a2es.htm"><strong>__a2e_s()</strong> z/OS C runtime library function</a>.</span></p>
+
+<p> Compare with <a href="../modules/string.html#atoe">atoe</a>, which is sensitive to the current locale.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         An ISO8859-1 character string.
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/string.html#e2a">e2a</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "atoe"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">atoe (s)</span></strong>
+    </dt>
+    <dd>
+    Converts the character encoding of a string
+ from ISO8859-1
+ to the EBCDIC code page of the current locale. </p>
+
+<p> <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxbd00/r0atel.htm"><strong>__atoe_l()</strong> z/OS C runtime library function</a>.</span></p>
+
+<p> Compare with <a href="../modules/string.html#a2e">a2e</a>, which is not sensitive to the current locale.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         An ISO8859-1 character string.
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/string.html#etoa">etoa</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "byte"></a>
+    <strong>byte (s, i, j)</strong>
+    </dt>
+    <dd>
+    Returns the internal numerical codes of the characters <code>s[i]</code>, <code>s[i+1]</code>,
+ ..., <code>s[j]</code>.  The default value for <code>i</code> is 1; the default value for <code>j</code>
+ is <code>i</code>.
+ Numerical codes are not necessarily portable across platforms.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+
+
+
+        </li>
+        <li><span class="parameter">i</span>
+
+
+
+        </li>
+        <li><span class="parameter">j</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "char"></a>
+    <strong>char (...)</strong>
+    </dt>
+    <dd>
+    Receives zero or more integers.  Returns a string with length equal to
+ the number of arguments, in which each character has the internal numerical
+ code equal to its corresponding argument.
+ Numerical codes are not necessarily portable across platforms.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "dump"></a>
+    <strong>dump (function)</strong>
+    </dt>
+    <dd>
+    Returns a string containing a binary representation of the given
+ function, so that a later <code>loadstring</code> on this string returns a copy of
+ the function.  <code>function</code> must be a Lua function without upvalues.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">function</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "e2a"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">e2a (s)</span></strong>
+    </dt>
+    <dd>
+    Converts the character encoding of a string
+ from EBCDIC
+ to ISO8859-1,
+ interpreting the EBCDIC characters according to
+ code page IBM-1047 regardless of the current locale. </p>
+
+<p> <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxbd00/e2as.htm"><strong>__e2a_s()</strong> z/OS C runtime library function</a>.</span></p>
+
+<p> Compare with <a href="../modules/string.html#etoa">etoa</a>, which is sensitive to the current locale.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         An EBCDIC character string.
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/string.html#a2e">a2e</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "etoa"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">etoa (s)</span></strong>
+    </dt>
+    <dd>
+    Converts the character encoding of a string
+ from EBCDIC
+ to ISO8859-1,
+ interpreting the EBCDIC characters according to
+ the code page of the current locale. </p>
+
+<p> <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxbd00/r0etal.htm"><strong>__etoa_l()</strong> z/OS C runtime library function</a>.</span></p>
+
+<p> Compare with <a href="../modules/string.html#e2a">e2a</a>, which is not sensitive to the current locale.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         An EBCDIC character string.
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/string.html#atoe">atoe</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "find"></a>
+    <strong>find (s, pattern, init, plain)</strong>
+    </dt>
+    <dd>
+    Looks for the first match of <code>pattern</code> in the string <code>s</code>.  If it finds a
+ match, then <code>find</code> returns the indices of <code>s</code> where this occurrence starts
+ and ends; otherwise, it returns nil. A third, optional numerical argument
+ <code>init</code> specifies where to start the search; its default value is 1 and
+ can be negative. A value of true as a fourth, optional argument <code>plain</code>
+ turns off the pattern matching facilities, so the function does a plain
+ "find substring" operation, with no characters in <code>pattern</code> being considered
+ "magic". If <code>plain</code> is given, then <code>init</code> must be given as well.
+ If the pattern has captures, then in a successful match the captured values
+ are also returned, after the two indices.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+
+
+
+        </li>
+        <li><span class="parameter">pattern</span>
+
+
+
+        </li>
+        <li><span class="parameter">init</span>
+
+
+
+        </li>
+        <li><span class="parameter">plain</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "format"></a>
+    <strong>format (formatstring, ...)</strong>
+    </dt>
+    <dd>
+    Returns a formatted version of its variable number of arguments following
+ the description given in its first argument (which must be a string).  The
+ format string follows the same rules as the <code>printf</code> family of standard C
+ functions. The only differences are that the options/modifiers <code>*</code>, <code>l</code>,
+ <code>L</code>, <code>n</code>, <code>p</code>, and <code>h</code> are not supported and that there is an extra option,
+ <code>q</code>. The <code>q</code> option formats a string in a form suitable to be safely read
+ back by the Lua interpreter: the string is written between double quotes,
+ and all double quotes, newlines, embedded zeros, and backslashes in the
+ string are correctly escaped when written. For instance, the call</p>
+
+
+<pre>
+<span class="global">string</span>.format(<span class="string">'%q'</span>, <span class="string">'a string with "quotes" and \n new line'</span>)
+</pre>
+
+<p> will produce the string:</p>
+
+
+<pre>
+<span class="string">"a string with \"quotes\" and \
+    new line"</span>
+</pre>
+
+<p> The options <code>c</code>, <code>d</code>, <code>E</code>, <code>e</code>, <code>f</code>, <code>g</code>, <code>G</code>, <code>i</code>, <code>o</code>, <code>u</code>, <code>X</code>, and
+ <code>x</code> all expect a number as argument, whereas <code>q</code> and <code>s</code> expect a string.
+ This function does not accept string values containing embedded zeros,
+ except as arguments to the <code>q</code> option.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">formatstring</span>
+
+
+
+        </li>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "gmatch"></a>
+    <strong>gmatch (s, pattern)</strong>
+    </dt>
+    <dd>
+    Returns an iterator function that, each time it is called, returns the
+ next captures from <code>pattern</code> over string <code>s</code>.  If <code>pattern</code> specifies no
+ captures, then the whole match is produced in each call.
+ As an example, the following loop</p>
+
+
+<pre>
+s = <span class="string">"hello world from Lua"</span>
+<span class="keyword">for</span> w <span class="keyword">in</span> <span class="global">string</span>.gmatch(s, <span class="string">"%a+"</span>) <span class="keyword">do</span>
+  <span class="global">print</span>(w)
+<span class="keyword">end</span>
+</pre>
+
+<p> will iterate over all the words from string <code>s</code>, printing one per line. The
+ next example collects all pairs <code>key=value</code> from the given string into
+ a table:</p>
+
+
+<pre>
+t = {}
+s = <span class="string">"from=world, to=Lua"</span>
+<span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="global">string</span>.gmatch(s, <span class="string">"(%w+)=(%w+)"</span>) <span class="keyword">do</span>
+  t[k] = v
+<span class="keyword">end</span>
+</pre>
+
+<p> For this function, a '<code>^</code>' at the start of a pattern does not work as an
+ anchor, as this would prevent the iteration.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+
+
+
+        </li>
+        <li><span class="parameter">pattern</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "gsub"></a>
+    <strong>gsub (s, pattern, repl, n)</strong>
+    </dt>
+    <dd>
+
+<p>Returns a copy of <code>s</code> in which all (or the first <code>n</code>, if given)
+ occurrences of the <code>pattern</code> have been replaced by a replacement string
+ specified by <code>repl</code>, which can be a string, a table, or a function.  <code>gsub</code>
+ also returns, as its second value, the total number of matches that occurred.</p>
+
+<p> If <code>repl</code> is a string, then its value is used for replacement. The character
+ <code>%</code> works as an escape character: any sequence in <code>repl</code> of the form <code>%n</code>,
+ with <em>n</em> between 1 and 9, stands for the value of the <em>n</em>-th captured
+ substring (see below). The sequence <code>%0</code> stands for the whole match. The
+ sequence <code>%%</code> stands for a single <code>%</code>.</p>
+
+<p> If <code>repl</code> is a table, then the table is queried for every match, using
+ the first capture as the key; if the pattern specifies no captures, then
+ the whole match is used as the key.</p>
+
+<p> If <code>repl</code> is a function, then this function is called every time a match
+ occurs, with all captured substrings passed as arguments, in order; if
+ the pattern specifies no captures, then the whole match is passed as a
+ sole argument.</p>
+
+<p> If the value returned by the table query or by the function call is a
+ string or a number, then it is used as the replacement string; otherwise,
+ if it is false or nil, then there is no replacement (that is, the original
+ match is kept in the string).</p>
+
+<p> Here are some examples:</p>
+
+<pre>
+x = <span class="global">string</span>.gsub(<span class="string">"hello world"</span>, <span class="string">"(%w+)"</span>, <span class="string">"%1 %1"</span>)
+<span class="comment">--&gt; x="hello hello world world"
+</span>x = <span class="global">string</span>.gsub(<span class="string">"hello world"</span>, <span class="string">"%w+"</span>, <span class="string">"%0 %0"</span>, <span class="number">1</span>)
+<span class="comment">--&gt; x="hello hello world"
+</span>x = <span class="global">string</span>.gsub(<span class="string">"hello world from Lua"</span>, <span class="string">"(%w+)%s*(%w+)"</span>, <span class="string">"%2 %1"</span>)
+<span class="comment">--&gt; x="world hello Lua from"
+</span>x = <span class="global">string</span>.gsub(<span class="string">"home = $HOME, user = $USER"</span>, <span class="string">"%$(%w+)"</span>, <span class="global">os</span>.getenv)
+<span class="comment">--&gt; x="home = /home/roberto, user = roberto"
+</span>x = <span class="global">string</span>.gsub(<span class="string">"4+5 = $return 4+5$"</span>, <span class="string">"%$(.-)%$"</span>, <span class="keyword">function</span> (s)
+      <span class="keyword">return</span> <span class="global">loadstring</span>(s)()
+    <span class="keyword">end</span>)
+<span class="comment">--&gt; x="4+5 = 9"
+</span><span class="keyword">local</span> t = {name=<span class="string">"lua"</span>, version=<span class="string">"5.1"</span>}
+x = <span class="global">string</span>.gsub(<span class="string">"$name-$version.tar.gz"</span>, <span class="string">"%$(%w+)"</span>, t)
+<span class="comment">--&gt; x="lua-5.1.tar.gz"
+</span>
+</pre>
+
+
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+
+
+
+        </li>
+        <li><span class="parameter">pattern</span>
+
+
+
+        </li>
+        <li><span class="parameter">repl</span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "len"></a>
+    <strong>len (s)</strong>
+    </dt>
+    <dd>
+    Receives a string and returns its length.  The empty string <code>""</code> has
+ length 0. Embedded zeros are counted, so <code>"a\000bc\000"</code> has length 5.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "left"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">left (s, length, pad)</span></strong>
+    </dt>
+    <dd>
+    Gets a substring starting from the left side of a string. </p>
+
+<p> <span class="sidebar">This function is similar to the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ikja300/left.htm"><strong>LEFT</strong> z/OS TSO/E REXX function</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The original string.
+        </li>
+        <li><span class="parameter">length</span>
+            <span class="types"><span class="type">int</span></span>
+         The number of characters to return.
+ Must be a positive integer or zero.
+        </li>
+        <li><span class="parameter">pad</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         A pad character. Default is a blank.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+         A string of <code>length</code> characters starting from the left side of <code>s</code>.</p>
+
+<p> If the original string contains less than <code>length</code> characters,
+ the returned string is padded on the right with <code>pad</code> characters.</p>
+
+<p> If you omit <code>length</code>, the function returns the original string.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/string.html#right">right</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> a = <span class="global">string</span>.left(<span class="string">"Ellipsis"</span>, <span class="number">2</span>)   <span class="comment">--&gt; "El"
+</span> <span class="keyword">local</span> b = <span class="global">string</span>.left(<span class="string">"Ellip"</span>, <span class="number">8</span>, <span class="string">"."</span>) <span class="comment">--&gt; "Ellip..."
+</span> <span class="keyword">local</span> s = <span class="string">"Ellipsis"</span>
+ <span class="keyword">local</span> c = s1:left(s1:len() + <span class="number">3</span>, <span class="string">"."</span>) <span class="comment">--&gt; "Ellipsis..."
+</span>
+ <span class="keyword">local</span> length = <span class="number">8</span>
+ <span class="keyword">local</span> d = <span class="global">string</span>.left(<span class="string">"Name"</span>, length)      <span class="comment">--&gt; "Name    " (padded)
+</span> <span class="keyword">local</span> e = <span class="global">string</span>.left(<span class="string">"Alexander"</span>, length) --&gt; <span class="string">"Alexande"</span> (truncated)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "lower"></a>
+    <strong>lower (s)</strong>
+    </dt>
+    <dd>
+    Receives a string and returns a copy of this string with all uppercase
+ letters changed to lowercase.  All other characters are left unchanged. The
+ definition of what an uppercase letter is depends on the current locale.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "match"></a>
+    <strong>match (s, pattern, init)</strong>
+    </dt>
+    <dd>
+    Looks for the first <em>match</em> of <code>pattern</code> in the string <code>s</code>.  If it
+ finds one, then <code>match</code> returns the captures from the pattern; otherwise
+ it returns nil. If <code>pattern</code> specifies no captures, then the whole match
+ is returned. A third, optional numerical argument <code>init</code> specifies where
+ to start the search; its default value is 1 and can be negative.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+
+
+
+        </li>
+        <li><span class="parameter">pattern</span>
+
+
+
+        </li>
+        <li><span class="parameter">init</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rep"></a>
+    <strong>rep (s, n)</strong>
+    </dt>
+    <dd>
+    Returns a string that is the concatenation of <code>n</code> copies of the string
+ <code>s</code>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "reverse"></a>
+    <strong>reverse (s)</strong>
+    </dt>
+    <dd>
+    Returns a string that is the string <code>s</code> reversed.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "right"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">right (s, length, pad)</span></strong>
+    </dt>
+    <dd>
+    Gets a substring starting from the right side of a string. </p>
+
+<p> <span class="sidebar">This function is similar to the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ikja300/right.htm"><strong>RIGHT</strong> z/OS TSO/E REXX function</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The original string.
+        </li>
+        <li><span class="parameter">length</span>
+            <span class="types"><span class="type">int</span></span>
+         The number of characters to return.
+ Must be a positive integer or zero.
+        </li>
+        <li><span class="parameter">pad</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         A pad character. Default is a blank.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+         A string of <code>length</code> characters starting from the right side of <code>s</code>.</p>
+
+<p> If the original string contains less than <code>length</code> characters,
+ the returned string is padded on the left with <code>pad</code> characters.</p>
+
+<p> If you omit <code>length</code>, the function returns the original string.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/string.html#left">left</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> a = <span class="global">string</span>.right(<span class="string">"yyyy-mm-ddThh:mm"</span>, <span class="number">5</span>) <span class="comment">--&gt; "hh:mm"
+</span> <span class="keyword">local</span> b = <span class="global">string</span>.right(<span class="string">"A"</span>, <span class="number">2</span>, <span class="string">"0"</span>) <span class="comment">--&gt; "0A"
+</span> <span class="keyword">local</span> c = <span class="global">string</span>.right(<span class="string">"0A"</span>, <span class="number">2</span>, <span class="string">"0"</span>) <span class="comment">--&gt; "0A" (unchanged)
+</span> <span class="keyword">local</span> d = <span class="string">"&gt;"</span> .. <span class="global">string</span>.right(<span class="string">"foop"</span>, <span class="number">0</span>) .. <span class="string">"&lt;"</span> - <span class="string">"&gt;&lt;"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "split"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">split (s, delimiters)</span></strong>
+    </dt>
+    <dd>
+    Splits a string at delimiters.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string that you want to split.
+        </li>
+        <li><span class="parameter">delimiters</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         A string of delimiter characters.
+ Default is <code>' \t\n'</code>: space, tab, newline. Any of the delimiter characters splits the string <code>s</code>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        An iterator function that, each time it is called, returns the next split element.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="comment">-- Print the number and name of each day of the week.
+</span> <span class="comment">-- For example: "Day 1: Monday"
+</span> <span class="keyword">local</span> week = <span class="string">"Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"</span>
+ <span class="keyword">local</span> n = <span class="number">0</span>
+ <span class="keyword">for</span> day <span class="keyword">in</span> week:split(<span class="string">","</span>) <span class="keyword">do</span>
+   n = n + <span class="number">1</span>
+   <span class="global">print</span>(<span class="string">"Day "</span>..n..<span class="string">": "</span>..day)
+ <span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "sub"></a>
+    <strong>sub (s, i, j)</strong>
+    </dt>
+    <dd>
+    Returns the substring of <code>s</code> that starts at <code>i</code> and continues until
+ <code>j</code>; <code>i</code> and <code>j</code> can be negative.  If <code>j</code> is absent, then it is assumed to
+ be equal to -1 (which is the same as the string length). In particular,
+ the call <code>string.sub(s,1,j)</code> returns a prefix of <code>s</code> with length <code>j</code>, and
+ <code>string.sub(s, -i)</code> returns a suffix of <code>s</code> with length <code>i</code>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+
+
+
+        </li>
+        <li><span class="parameter">i</span>
+
+
+
+        </li>
+        <li><span class="parameter">j</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "substr"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">substr (s, n, length, pad)</span></strong>
+    </dt>
+    <dd>
+    Gets a substring starting from the <code>n</code>th character of a string. </p>
+
+<p> <span class="sidebar">This function is similar to the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ikja300/substr.htm"><strong>SUBSTR</strong> z/OS TSO/E REXX function</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The original string.
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+         The character position in <code>s</code> at which to start.
+ Must be a positive integer.
+        </li>
+        <li><span class="parameter">length</span>
+            <span class="types"><span class="type">int</span></span>
+         The number of characters to return.
+        </li>
+        <li><span class="parameter">pad</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         A pad character. Default is a blank.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+         A string of <code>length</code> characters starting from the <code>n</code>th character of <code>s</code>.</p>
+
+<p> If you omit <code>length</code>, the returned string consists of the remainder of <code>s</code>.</p>
+
+<p> If <code>length</code> extends past the end of <code>s</code>,
+ the returned string is padded on the right with <code>pad</code> characters.</p>
+
+<p> If <code>n</code> is greater than the length of <code>s</code>,
+ the returned string consists of <code>length</code> pad characters.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> s = <span class="string">"123456789"</span>
+
+ <span class="keyword">local</span> a = <span class="global">string</span>.substr(s, <span class="number">3</span>, <span class="number">4</span>) <span class="comment">--&gt; "3456"
+</span>
+ <span class="comment">-- Question: Why is 6 afraid of 7?
+</span> <span class="keyword">local</span> answer = s:substr(<span class="number">7</span>) <span class="comment">--&gt; "789"
+</span>
+ <span class="keyword">local</span> b = <span class="global">string</span>.substr(s, <span class="number">5</span>, <span class="number">10</span>, <span class="string">"+"</span>) <span class="comment">--&gt; "56789+++++"
+</span> <span class="keyword">local</span> c = <span class="global">string</span>.substr(s, <span class="number">10</span>, <span class="number">3</span>, <span class="string">"+"</span>) --&gt; <span class="string">"+++"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "subword"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">subword (s, n, length)</span></strong>
+    </dt>
+    <dd>
+    Gets words starting from the <code>n</code>th word of a string. </p>
+
+<p> <span class="sidebar">This function is similar to the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ikja300/subword.htm"><strong>SUBWORD</strong> z/OS TSO/E REXX function</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The original string of words.
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+         The number of the first word to get.
+ For example, to start from the third word, specify 3.
+ Must be a positive integer.
+        </li>
+        <li><span class="parameter">length</span>
+            <span class="types"><span class="type">int</span></span>
+         The number of words to get.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+         A string of up to <code>length</code> blank-delimited words starting from the <code>n</code>th word of <code>s</code>,
+ or <code>nil</code> if <code>s</code> contains less than <code>n</code> words.</p>
+
+<p> If you omit <code>length</code>, the returned string contains the remaining words in <code>s</code>.</p>
+
+<p> The returned string preserves all blanks between words,
+ but has no leading or trailing blanks.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> s = <span class="string">"  one giant   leap   for mankind  "</span>
+ <span class="keyword">local</span> a = s:subword(<span class="number">3</span>)    <span class="comment">--&gt; "leap   for mankind"
+</span> <span class="keyword">local</span> b = s:subword(<span class="number">2</span>, <span class="number">2</span>) <span class="comment">--&gt; "giant   leap"
+</span> <span class="keyword">local</span> b = s:subword(<span class="number">2</span>, <span class="number">1</span>) --&gt; <span class="string">"giant"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "upper"></a>
+    <strong>upper (s)</strong>
+    </dt>
+    <dd>
+    Receives a string and returns a copy of this string with all lowercase
+ letters changed to uppercase.  All other characters are left unchanged. The
+ definition of what a lowercase letter is depends on the current locale.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "word"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">word (s, n)</span></strong>
+    </dt>
+    <dd>
+    Gets the <code>n</code>th word from a string. </p>
+
+<p> This function is equivalent to <code>subword(string, n, 1)</code>.</p>
+
+<p> <span class="sidebar">This function is similar to the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ikja300/dup0028.htm"><strong>WORD</strong> z/OS TSO/E REXX function</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The original string of words.
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+         The number of the word that you want to get.
+ For example, to get the second word, specify 2.
+ Must be a positive integer.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+         A string consisting of the <code>n</code>th blank-delimited word in <code>s</code>,
+ or <code>nil</code> if <code>s</code> contains less than <code>n</code> words.</p>
+
+<p> The returned string has no leading or trailing blanks.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> s = <span class="string">"  one   small   step  "</span>
+ <span class="keyword">local</span> a = s:subword(<span class="number">2</span>) <span class="comment">--&gt; "small"
+</span> <span class="keyword">local</span> b = s:subword(<span class="number">4</span>) --&gt; <span class="keyword">nil</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "wordindex"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">wordindex (s, n)</span></strong>
+    </dt>
+    <dd>
+    Finds the start position of the <code>n</code>th word in a string. </p>
+
+<p> <span class="sidebar">This function is similar to the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ikja300/dup0029.htm"><strong>WORDINDEX</strong> z/OS TSO/E REXX function</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The original string of words.
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+         The number of the word that you want to find in the string.
+ For example, to find the third word, specify 3.
+ Must be a positive integer.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+         An integer that represents the start position of the
+ <code>n</code>th blank-delimited word in <code>s</code>,
+ or 0 if <code>s</code> contains less than <code>n</code> words.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="comment">--                  1         2
+</span> <span class="comment">--         123456789012345678901234  &lt;-- Returned value
+</span> <span class="keyword">local</span> s = <span class="string">"  a sliver of the moon  "</span>
+ <span class="comment">--           1 2      3  4   5       &lt;-- Input value (n)
+</span> <span class="comment">--                    |
+</span> <span class="keyword">local</span> a = s:wordindex(<span class="number">3</span>)             --&gt; <span class="number">12</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "wordlength"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">wordlength (s, n)</span></strong>
+    </dt>
+    <dd>
+    Gets the length of the <code>n</code>th word in a string. </p>
+
+<p> <span class="sidebar">This function is similar to the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ikja300/dup0030.htm"><strong>WORDINDEX</strong> z/OS TSO/E REXX function</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The original string of words.
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+         The number of the word that you want to measure.
+ For example, to get the length of the third word, specify 3.
+ Must be a positive integer.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        An integer that represents the length of the <code>n</code>th blank-delimited word in <code>s</code>,
+ or 0 if <code>s</code> contains less than <code>n</code> words.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> s = <span class="string">"from the planet Earth"</span>
+ <span class="keyword">local</span> a = s:wordlength(<span class="number">3</span>) --&gt; <span class="number">6</span> (length of word <span class="number">3</span>, <span class="string">"planet"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "wordpos"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">wordpos (word, s, start)</span></strong>
+    </dt>
+    <dd>
+    Finds a word in a string. </p>
+
+<p> <span class="sidebar">This function is similar to the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ikja300/wordpos.htm"><strong>WORDPOS</strong> z/OS TSO/E REXX function</a>.
+ However, this Lua function finds a single word,
+ while the REXX function finds a phrase of one or more words.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">word</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The word that you are looking for. Must be a <em>single</em> word without blanks.
+        </li>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string that you want to search; that might contain <code>word</code>.
+        </li>
+        <li><span class="parameter">start</span>
+            <span class="types"><span class="type">int</span></span>
+         The number of the word in <code>s</code> at which to start searching for <code>word</code>.
+ Default is 1. Must be a positive integer.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+         If <code>s</code> contains <code>word</code>,
+ this function returns an integer
+ that represents the number of the word in <code>s</code> that matches <code>word</code>.</p>
+
+<p> If <code>s</code> does not contain <code>word</code>,
+ or the value of <code>word</code> is invalid (such as a phrase consisting of more than one word),
+ this function returns 0.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> <span class="global">string</span> = <span class="string">"Three things cannot be long hidden"</span>
+ <span class="keyword">local</span> word = <span class="string">"things"</span>
+ <span class="keyword">local</span> a = word:wordpos(<span class="global">string</span>))    <span class="comment">--&gt; 2
+</span> <span class="keyword">local</span> a = word:wordpos(<span class="global">string</span>, <span class="number">3</span>)) <span class="comment">--&gt; 0 (not found)
+</span>
+ word = <span class="string">"thing"</span> <span class="comment">-- singular
+</span> <span class="keyword">local</span> b = word:wordpos(<span class="global">string</span>))    <span class="comment">--&gt; 0
+</span>
+ phrase = <span class="string">"long hidden"</span>
+ <span class="keyword">local</span> c = phrase:wordpos(<span class="global">string</span>))  --&gt; <span class="number">0</span> (phrase <span class="keyword">not</span> allowed)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "words"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">words (s)</span></strong>
+    </dt>
+    <dd>
+    Counts the words in a string. </p>
+
+<p> <span class="sidebar">This function is similar to the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ikja300/words.htm"><strong>WORDS</strong> z/OS TSO/E REXX function</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        An integer that represents the number of blank-delimited words in <code>s</code>,
+ where a blank is a space, a tab, or a newline.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> s1 = <span class="string">"Moonlight drowns out all but the brightest stars."</span>
+ <span class="keyword">local</span> a = s1:words() <span class="comment">--&gt; 8
+</span> <span class="keyword">local</span> s2 = <span class="string">"Commas,are,not,blanks"</span>
+ <span class="keyword">local</span> b = s2:words() --&gt; <span class="number">1</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "x2c"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">x2c (hexstring)</span></strong>
+    </dt>
+    <dd>
+    Converts a string of characters that represent hexadecimal EBCDIC code points
+ into the corresponding string of EBCDIC characters. </p>
+
+<p> <span class="sidebar">This function is similar to the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ikja300/x2c.htm"><strong>X2C</strong> z/OS TSO/E REXX function</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">hexstring</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         One or more pair of characters in the range 0 - 9, a - f, A - F.
+ Each character represents a hexadecimal digit.
+ Each pair represents an EBCDIC code point.</p>
+
+<p> If <code>hexstring</code> contains an odd number of characters, it is padded with a leading 0.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+         A string of EBCDIC characters that matches the code points specified by <code>hexstring</code>.</p>
+
+<p> The returned string is half the length of <code>hexstring</code> (including the leading 0 that
+ might have been added, if <code>hexstring</code> contains an odd number of characters).
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="comment">-- Create an alias for the string.x2c function
+</span> <span class="keyword">local</span> x = <span class="global">string</span>.x2c
+ <span class="comment">-- Lua does not require parentheses on function calls with
+</span> <span class="comment">-- only a string argument.
+</span> <span class="comment">-- When combined with the x alias, this feature
+</span> <span class="comment">-- enables us to mimic hex constants:
+</span> <span class="keyword">local</span> hexString = x<span class="string">'C8895A'</span>
+ <span class="global">print</span>(hexString) --&gt; <span class="string">"Hi!"</span></pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>

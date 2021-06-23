@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: init</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><span class='module-ext title='Lua extension'><strong>init</strong></span>
+   <ul>
+     <li><a href="#Functions">Functions</a></li>
+</ul>
+  </li>
+      <li><a href="../modules/ispf.lmmlist.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf.lmmlist</span></a></li>
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><a href="../modules/coroutine.html"><span class='module-std' title='Lua standard library'>coroutine</span></a></li>
+      <li><a href="../modules/debug.html"><span class='module-std' title='Lua standard library'>debug</span></a></li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><a href="../modules/iconv.html"><span class='module-ext title='Lua extension'>iconv</span></a></li>
+      <li><a href="../modules/io.html"><span class='module-std' title='Lua standard library'>io</span></a></li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><a href="../modules/lpeg.html"><span class='module-ext title='Lua extension'>lpeg</span></a></li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><a href="../modules/os.html"><span class='module-std' title='Lua standard library'>os</span></a></li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><a href="../modules/string.html"><span class='module-std' title='Lua standard library'>string</span></a></li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><a href="../manual/install.md.html"><span >Installing</span></a></li>
+      <li><a href="../manual/using.md.html"><span >Running Lua programs on z/OS</span></a></li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><a href="../manual/rexx.md.html"><span >Lua for REXX developers</span></a></li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><a href="../examples/iconvs.lua.html"><span >iconvs.lua</span></a></li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><a href="../examples/pdsdir.lua.html"><span >pdsdir.lua</span></a></li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+</div>
+<div id="content">
+<h1>Module <code>init</code></h1>
+<p>Issues an ISPEXEC function specifying a command string
+ containing the name of the service and its parameters just as they would
+ appear in an ISPEXEC invocation for a command invocation written in REXX.</p>
+<p>
+
+</p>
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#bind">bind (parms)</a></td>
+	<td class="summary">Binds a table of Lua variables to ISPF dialog variables.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#edit">edit (dsn)</a></td>
+	<td class="summary">Edits a data set using the ISPF editor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#view">view (dsn)</a></td>
+	<td class="summary">Manipulates the contents of a data set without saving changes.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get">get (namelist, pool)</a></td>
+	<td class="summary">Retrieves variables from a pool or profile or system symbol.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#put">put (namelist, pool)</a></td>
+	<td class="summary">Updates variables in the shared or profile pool</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getToken">getToken ()</a></td>
+	<td class="summary">Returns a tokenized 8-character name in the form L<em>nnnnnnn</em>.</td>
+	</tr>
+</table>
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "bind"></a>
+    <strong>bind (parms)</strong>
+    </dt>
+    <dd>
+    Binds a table of Lua variables to ISPF dialog variables.
+ <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.f54sg00/vdefin.htm"><strong>VDEFINE</strong> z/OS ISPF service</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">parms</span>
+         The list of variables to bind: their names, types, and, for character variables, length.</p>
+
+<p> You can specify <var>parms</var> either as a string or as a table.</p>
+
+<p> The string format has the following syntax:</p>
+
+<p> <pre><code>"<var>name</var>(char(<var>length</var>)|<var>length</var>|double|int|float) ..."</code></pre></p>
+
+<p> where:</p>
+
+<p> <em>name</em> is the name of an ISPF dialog variable</p>
+
+<p> <code>char</code>, <code>double</code>, <code>int</code>, or <code>float</code> specify the type of the variable</p>
+
+<p> <var>length</var> is an integer that specifies the length of a character data variable</p>
+
+<p> <code><var>name</var>(<var>length</var>)</code> is shorthand for <code><var>name</var>(char(<var>length</var>))</code></p>
+
+<p> The table format has the following syntax:</p>
+
+<p> <pre><code> {
+   {"<var>name</var>", "<var>type</var>", <var>length</var>}, ...
+ }</code></pre></p>
+
+<p> where:</p>
+
+<p> <var>type</var> is <code>char</code>, <code>double</code>, <code>int</code>, or <code>float</code></p>
+
+<p> <var>length</var> applies only to type <code>char</code></p>
+
+<p> The variable types that you specify in <var>parms</var> correspond to the following <code>VDEFINE</code> formats and lengths:</p>
+
+<p> <table>
+ <caption>How <var>type</var> maps to <code>VDEFINE</code></caption>
+ <tr>
+ <th><code>ispf.bind</code> <var>type</var></th>
+ <th><code>VDEFINE</code> <var>format</var> and <var>length</var></th>
+ </tr>
+ <tr>
+ <td><code>char</code></td>
+ <td><code>CHAR</code> format with specified length</td>
+ </tr>
+ <tr>
+ <td><code>double</code></td>
+ <td><code>FLOAT</code> format with length 8</td>
+ </tr>
+ <tr>
+ <td><code>int</code></td>
+ <td><code>FIXED</code> format with length 4 (signed integer)</td>
+ </tr>
+ <tr>
+ <td><code>float</code></td>
+ <td><code>FLOAT</code> format with length 4</td>
+ </tr>
+ </table>
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+         A table consisting of fields that correspond to each of the bound variables.
+ Note that, unlike the ISPF dialog variable names, these field names are case-sensitive.
+ For example, if you specified a variable name in lowercase in the input <var>parm</var>,
+ then the corresponding field name in the returned table is also in lowercase.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="comment">-- Creates an ISPF table, adds rows, and then prints the rows
+</span>
+ <span class="keyword">local</span> ispf = <span class="global">require</span>(<span class="string">"ispf"</span>)
+ <span class="keyword">local</span> ispexec = ispf.ispexec
+
+ <span class="comment">-- Bind ISPF dialog variables NUM, NAME, and ADDR
+</span> <span class="comment">-- using table format of ispf.bind function
+</span> <span class="keyword">local</span> row = ispf.bind {
+   { <span class="string">"num"</span>, <span class="string">"int"</span> },
+   { <span class="string">"name"</span>, <span class="string">"char"</span>, <span class="number">20</span> },
+   { <span class="string">"addr"</span>, <span class="string">"char"</span>, <span class="number">60</span> }
+ }
+ <span class="comment">-- Equivalent bind function call using string format:
+</span> <span class="comment">-- local row = ispf.bind "num(int) name(20) addr(60)"
+</span>
+ <span class="comment">-- Example names
+</span> <span class="keyword">local</span> names = {
+   <span class="string">"Alfa"</span>, <span class="string">"Bravo"</span>, <span class="string">"Charlie"</span>, <span class="string">"Delta"</span>, <span class="string">"Echo"</span>,
+   <span class="string">"Foxtrot"</span>, <span class="string">"Golf"</span>, <span class="string">"Hotel"</span>, <span class="string">"India"</span>, <span class="string">"Juliett"</span>
+ }
+
+ <span class="comment">-- Create an ISPF table containing
+</span> <span class="comment">-- the variables NUM, NAME, and ADDR
+</span> ispexec(<span class="string">"TBCREATE TAB1 NAMES(NUM,NAME,ADDR) NOWRITE REPLACE"</span>)
+
+ <span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">10</span> <span class="keyword">do</span>
+   <span class="comment">-- Set the values of the ISPF dialog variables
+</span>   row.num  = i
+   row.name = names[i] .. <span class="string">" Corporation"</span>
+   row.addr = i .. <span class="string">" Brodie-Hall Drive"</span>
+   <span class="comment">-- Add a table row using these values
+</span>   ispexec(<span class="string">"TBADD TAB1"</span>)
+ <span class="keyword">end</span>
+
+ <span class="comment">-- Set the row pointer to the top of the table
+</span> ispexec(<span class="string">"TBTOP TAB1"</span>)
+
+ <span class="comment">-- Iterate over the table rows
+</span> <span class="keyword">while</span> (ispexec(<span class="string">"TBSKIP TAB1"</span>) == <span class="number">0</span>) <span class="keyword">do</span>
+   <span class="global">print</span>(row.num, row.name, row.addr)
+ <span class="keyword">end</span>
+
+ <span class="comment">-- Close the table without saving it
+</span> ispexec(<span class="string">"TBEND TAB1"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "edit"></a>
+    <strong>edit (dsn)</strong>
+    </dt>
+    <dd>
+    Edits a data set using the ISPF editor. </p>
+
+<p> <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.f54sg00/edit.htm"><strong>EDIT</strong> z/OS ISPF service</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dsn</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The data set name to edit.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The return code from the ISPF EDIT service
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "view"></a>
+    <strong>view (dsn)</strong>
+    </dt>
+    <dd>
+    Manipulates the contents of a data set without saving changes. </p>
+
+<p> <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.f54sg00/view.htm"><strong>VIEW</strong> z/OS ISPF service</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dsn</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The data set name to view.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The return code from the ISPF VIEW service
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get"></a>
+    <strong>get (namelist, pool)</strong>
+    </dt>
+    <dd>
+    Retrieves variables from a pool or profile or system symbol. </p>
+
+<p> <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.f54sg00/vget.htm"><strong>VGET</strong> z/OS ISPF service</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">namelist</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The names of one or more dialog variables whose values
+ are to be copied from the shared or profile pool to the function pool.
+        </li>
+        <li><span class="parameter">pool</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The variable pool where the variable resides: "SHARED", "PROFILE", or
+ "ASIS". Default is "ASIS")
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The return code from the ISPF VGET service.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "put"></a>
+    <strong>put (namelist, pool)</strong>
+    </dt>
+    <dd>
+    Updates variables in the shared or profile pool  <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.f54sg00/vput.htm"><strong>VPUT</strong> z/OS ISPF service</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">namelist</span>
+         the names of one or more dialog variables whose values
+ are to be copied from the function pool to the shared or profile pool.
+        </li>
+        <li><span class="parameter">pool</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         the variable pool to copy to: "SHARED", "PROFILE", or
+ "ASIS". Default is "ASIS"
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The return code from the ISPF VPUT service.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getToken"></a>
+    <strong>getToken ()</strong>
+    </dt>
+    <dd>
+    Returns a tokenized 8-character name in the form L<em>nnnnnnn</em>.
+ This is useful for creating temporary ISPF table names or ddnames.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>

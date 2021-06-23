@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: Lua for REXX developers</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><a href="../manual/install.md.html"><span >Installing</span></a></li>
+      <li><a href="../manual/using.md.html"><span >Running Lua programs on z/OS</span></a></li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><span ><strong>Lua for REXX developers</strong></span>
+   <ul>
+     <li><a href="#Data_types">Data types </a></li>
+     <li><a href="#Logical_expressions">Logical expressions </a></li>
+     <li><a href="#Parsing">Parsing </a></li>
+     <li><a href="#Tables__not_stem_variables">Tables, not stem variables </a></li>
+     <li><a href="#Modular_programming">Modular programming </a></li>
+</ul>
+  </li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><a href="../modules/ispf.lmmlist.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf.lmmlist</span></a></li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><a href="../modules/coroutine.html"><span class='module-std' title='Lua standard library'>coroutine</span></a></li>
+      <li><a href="../modules/debug.html"><span class='module-std' title='Lua standard library'>debug</span></a></li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><a href="../modules/iconv.html"><span class='module-ext title='Lua extension'>iconv</span></a></li>
+      <li><a href="../modules/io.html"><span class='module-std' title='Lua standard library'>io</span></a></li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><a href="../modules/lpeg.html"><span class='module-ext title='Lua extension'>lpeg</span></a></li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><a href="../modules/os.html"><span class='module-std' title='Lua standard library'>os</span></a></li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><a href="../modules/string.html"><span class='module-std' title='Lua standard library'>string</span></a></li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><a href="../examples/iconvs.lua.html"><span >iconvs.lua</span></a></li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><a href="../examples/pdsdir.lua.html"><span >pdsdir.lua</span></a></li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+</div>
+<div id="content">
+
+<h1>Lua for REXX developers</h1>
+
+
+<p>If you are a REXX developer, you might find the following tips useful.</p>
+
+<p><a name="Data_types"></a></p>
+<h2>Data types</h2>
+
+<p>Data in REXX is untyped; or rather, there is only one data type: string.</p>
+
+<p>Lua has several <a href="http://www.lua.org/manual/5.1/manual.html#2.2">types</a>.</p>
+
+<p>From <a href="http://www.lua.org/pil/2.html">Programming in Lua</a>:</p>
+
+<blockquote>
+    <p>Lua is a dynamically typed language. There are no type definitions in the language; each value carries its own type.</p>
+</blockquote>
+
+<p><a name="Logical_expressions"></a></p>
+<h2>Logical expressions</h2>
+
+<p>In REXX, logical expressions return 0 or 1.</p>
+
+<p>From the <a href="http://www.lua.org/manual/5.1/manual.html#2.5.3">Lua Reference Manual</a>:</p>
+
+<blockquote>
+    <p>The operator <code>and</code> returns its first argument if it is false; otherwise, it returns its second argument. The operator <code>or</code> returns its first argument if it is not false; otherwise, it returns its second argument.</p>
+</blockquote>
+
+<p>For example:</p>
+
+
+<pre>
+<span class="keyword">nil</span> <span class="keyword">or</span> <span class="string">"a"</span> <span class="comment">--&gt; "a"
+</span>
+</pre>
+
+<p>This behavior is useful for specifying default values for function arguments:</p>
+
+
+<pre>
+<span class="keyword">function</span> f(x)
+  x = x <span class="keyword">or</span> <span class="number">1</span> <span class="comment">-- Default value is 1
+</span>  <span class="comment">--- Do something with x
+</span><span class="keyword">end</span>
+</pre>
+
+<p><a name="Parsing"></a></p>
+<h2>Parsing</h2>
+
+<p>If you're looking for a Lua equivalent to the REXX <code>PARSE</code> statement, see:</p>
+
+<ul>
+    <li><p>The <a href="http://stevedonovan.github.io/Penlight/api/modules/pl.sip.html">Simple Input Patterns (SIP)</a> functions supplied by the Penlight extension.</p></li>
+    <li><p>The <a href="../modules/lpeg.html#">Lpeg</a> extension.</p></li>
+</ul>
+
+<p><a name="Tables__not_stem_variables"></a></p>
+<h2>Tables, not stem variables</h2>
+
+<p>Where you would use a stem variable in REXX you would likely use a <a href="http://www.lua.org/manual/5.1/manual.html#2.2"><code>table</code></a> in Lua.</p>
+
+<p><a name="Modular_programming"></a></p>
+<h2>Modular programming</h2>
+
+<p>If you develop a Lua function that you want to use in more than one Lua program,
+you can store the function code in a Lua program, and then use the <a href="http://www.lua.org/manual/5.1/manual.html#pdf-require"><code>require</code></a> function
+in other Lua programs to refer to that Lua program.</p>
+
+<p>For example, suppose that you have developed a function named hello that you
+want to reuse. You store that function in a Lua program:</p>
+
+
+<pre>
+<span class="comment">-- common.lua
+</span><span class="keyword">local</span> M = {}
+
+<span class="comment">-- Locally scoped ("private") function:
+</span><span class="comment">-- not available outside this chunk (file)
+</span><span class="keyword">local</span> <span class="keyword">function</span> greeting(s)
+  <span class="global">print</span>(M.who .. <span class="string">" says, "</span> .. <span class="string">"\""</span> .. s .. <span class="string">"\""</span>)
+<span class="keyword">end</span>
+
+M.who = <span class="string">"Lua"</span>
+
+<span class="keyword">function</span> M.hello()
+  greeting(<span class="string">"Hello, World!"</span>)
+<span class="keyword">end</span>
+
+<span class="comment">-- Returns a table that contains
+</span><span class="comment">-- the hello function and the who variable
+</span><span class="keyword">return</span> M
+</pre>
+
+<p>then use the hello function in a Lua program like this:</p>
+
+
+<pre>
+<span class="keyword">local</span> cmn = <span class="global">require</span>(<span class="string">"common"</span>)
+cmn.hello() <span class="comment">--&gt; Lua says, "Hello, World!"
+</span>cmn.who = <span class="string">"Simon"</span>
+cmn.hello() <span class="comment">--&gt; Simon says, "Hello, World!"
+</span>
+</pre>
+
+<p>The <code>common.lua</code> program must be stored in a path that is referred to
+by the Lua <code>package.path</code> property.</p>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>

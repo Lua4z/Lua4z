@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: lpeg</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><a href="../modules/ispf.lmmlist.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf.lmmlist</span></a></li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><a href="../modules/coroutine.html"><span class='module-std' title='Lua standard library'>coroutine</span></a></li>
+      <li><a href="../modules/debug.html"><span class='module-std' title='Lua standard library'>debug</span></a></li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><a href="../modules/iconv.html"><span class='module-ext title='Lua extension'>iconv</span></a></li>
+      <li><a href="../modules/io.html"><span class='module-std' title='Lua standard library'>io</span></a></li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><span class='module-ext title='Lua extension'><strong>lpeg</strong></span>
+   <ul>
+     <li><a href="#Functions">Functions</a></li>
+</ul>
+  </li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><a href="../modules/os.html"><span class='module-std' title='Lua standard library'>os</span></a></li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><a href="../modules/string.html"><span class='module-std' title='Lua standard library'>string</span></a></li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><a href="../manual/install.md.html"><span >Installing</span></a></li>
+      <li><a href="../manual/using.md.html"><span >Running Lua programs on z/OS</span></a></li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><a href="../manual/rexx.md.html"><span >Lua for REXX developers</span></a></li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><a href="../examples/iconvs.lua.html"><span >iconvs.lua</span></a></li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><a href="../examples/pdsdir.lua.html"><span >pdsdir.lua</span></a></li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+</div>
+<div id="content">
+<h1>Module <code>lpeg</code></h1>
+<p>A pattern-matching extension library based on parsing expression grammars (PEGs).</p>
+<p> For more information, see the original <a href="http://www.inf.puc-rio.br/~roberto/lpeg/">LPeg documentation</a>.</p>
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#match">match (pattern, subject, init)</a></td>
+	<td class="summary">The matching function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#type">type (value)</a></td>
+	<td class="summary">If the given value is a pattern, returns the string "pattern".</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#version">version ()</a></td>
+	<td class="summary">Returns a string with the running version of LPeg.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setmaxstack">setmaxstack (max)</a></td>
+	<td class="summary">Sets the maximum size for the backtrack stack used by LPeg to track calls and
+ choices.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#P">P (value)</a></td>
+	<td class="summary">Converts the given value into a proper pattern, according to the following
+ rules:
+   * If the argument is a pattern, it is returned unmodified.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#R">R ({)</a></td>
+	<td class="summary">Returns a pattern that matches any single character belonging to one of the
+ given ranges.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#S">S (string)</a></td>
+	<td class="summary">Returns a pattern that matches any single character that appears in the given
+ string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#V">V (v)</a></td>
+	<td class="summary">This operation creates a non-terminal (a variable) for a grammar.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#locale">locale (table)</a></td>
+	<td class="summary">Returns a table with patterns for matching some character classes according
+ to the current locale.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#C">C (patt)</a></td>
+	<td class="summary">Creates a simple capture, which captures the substring of the subject that
+ matches patt.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Carg">Carg (n)</a></td>
+	<td class="summary">Creates an argument capture.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Cb">Cb (name)</a></td>
+	<td class="summary">Creates a back capture.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Cc">Cc (...)</a></td>
+	<td class="summary">Creates a constant capture.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Cf">Cf (patt, func)</a></td>
+	<td class="summary">Creates a fold capture.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Cg">Cg (patt, name)</a></td>
+	<td class="summary">Creates a group capture.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Cp">Cp ()</a></td>
+	<td class="summary">Creates a position capture.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Cs">Cs (patt)</a></td>
+	<td class="summary">Creates a substitution capture, which captures the substring of the subject
+ that matches patt, with substitutions.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Ct">Ct (patt)</a></td>
+	<td class="summary">Creates a table capture.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Cmt">Cmt (patt, function)</a></td>
+	<td class="summary">Creates a match-time capture.</td>
+	</tr>
+</table>
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "match"></a>
+    <strong>match (pattern, subject, init)</strong>
+    </dt>
+    <dd>
+    The matching function.  It attempts to match the given pattern against the
+ subject string. If the match succeeds, returns the index in the subject of
+ the first character after the match, or the captured values (if the pattern
+ captured any value).</p>
+
+<p> An optional numeric argument init makes the match starts at that position in
+ the subject string. As usual in Lua libraries, a negative value counts from
+ the end.</p>
+
+<p> Unlike typical pattern-matching functions, match works only in anchored mode;
+ that is, it tries to match the pattern with a prefix of the given subject
+ string (at position init), not with an arbitrary substring of the subject.
+ So, if we want to find a pattern anywhere in a string, we must either write a
+ loop in Lua or write a pattern that matches anywhere. This second approach is
+ easy and quite efficient; see examples.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pattern</span>
+
+
+
+        </li>
+        <li><span class="parameter">subject</span>
+
+
+
+        </li>
+        <li><span class="parameter">init</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "type"></a>
+    <strong>type (value)</strong>
+    </dt>
+    <dd>
+    If the given value is a pattern, returns the string "pattern".  Otherwise
+ returns nil.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "version"></a>
+    <strong>version ()</strong>
+    </dt>
+    <dd>
+    Returns a string with the running version of LPeg.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setmaxstack"></a>
+    <strong>setmaxstack (max)</strong>
+    </dt>
+    <dd>
+    Sets the maximum size for the backtrack stack used by LPeg to track calls and
+ choices.  Most well-written patterns need little backtrack levels and
+ therefore you seldom need to change this maximum; but a few useful patterns
+ may need more space. Before changing this maximum you should try to rewrite
+ your pattern to avoid the need for extra space.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">max</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "P"></a>
+    <strong>P (value)</strong>
+    </dt>
+    <dd>
+
+<p>Converts the given value into a proper pattern, according to the following
+ rules:
+   * If the argument is a pattern, it is returned unmodified.
+   * If the argument is a string, it is translated to a pattern that matches</p>
+
+<pre>
+literally the <span class="global">string</span>.
+</pre>
+
+<p>   * If the argument is a non-negative number n, the result is a pattern that</p>
+
+<pre>
+matches exactly n characters.
+</pre>
+
+<p>   * If the argument is a negative number -n, the result is a pattern that</p>
+
+<pre>
+succeeds only <span class="keyword">if</span> the input <span class="global">string</span> does <span class="keyword">not</span> have n characters: lpeg.P(-n)
+is equivalent to -lpeg.P(n) (see the unary minus operation).
+</pre>
+
+<p>   * If the argument is a boolean, the result is a pattern that always</p>
+
+<pre>
+succeeds <span class="keyword">or</span> always fails (according to the boolean value), without
+consuming any input.
+</pre>
+
+<p>   * If the argument is a table, it is interpreted as a grammar (see</p>
+
+<pre>
+Grammars).
+</pre>
+
+<p>   * If the argument is a function, returns a pattern equivalent to a</p>
+
+<pre>
+match-time capture over the empty <span class="global">string</span>.
+</pre>
+
+
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "R"></a>
+    <strong>R ({)</strong>
+    </dt>
+    <dd>
+    Returns a pattern that matches any single character belonging to one of the
+ given ranges.  Each range is a string xy of length 2, representing all
+ characters with code between the codes of x and y (both inclusive).
+ As an example, the pattern <code>lpeg.R("09")</code> matches any digit, and `lpeg.R("az",
+ "AZ")` matches any ASCII letter.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">{</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "S"></a>
+    <strong>S (string)</strong>
+    </dt>
+    <dd>
+    Returns a pattern that matches any single character that appears in the given
+ string.  (The S stands for Set.)
+ As an example, the pattern lpeg.S("+-*/") matches any arithmetic operator.
+ Note that, if s is a character (that is, a string of length 1), then
+ lpeg.P(s) is equivalent to lpeg.S(s) which is equivalent to lpeg.R(s..s).
+ Note also that both lpeg.S("") and lpeg.R() are patterns that always fail.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">string</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "V"></a>
+    <strong>V (v)</strong>
+    </dt>
+    <dd>
+    This operation creates a non-terminal (a variable) for a grammar.  The created
+ non-terminal refers to the rule indexed by v in the enclosing grammar. (See
+ Grammars for details.)
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "locale"></a>
+    <strong>locale (table)</strong>
+    </dt>
+    <dd>
+    Returns a table with patterns for matching some character classes according
+ to the current locale.  The table has fields:</p>
+
+<ul>
+    <li>alnum</li>
+    <li>alpha</li>
+    <li>cntrl</li>
+    <li>digit</li>
+    <li>graph</li>
+    <li>lower</li>
+    <li>print</li>
+    <li>punct</li>
+    <li>space</li>
+    <li>upper</li>
+    <li>xdigit</li>
+</ul>
+
+<p> each one containing a
+ correspondent pattern. Each pattern matches any single character that belongs
+ to its class.</p>
+
+<p> If called with an argument table, then it creates those fields inside the
+ given table and returns that table.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">table</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "C"></a>
+    <strong>C (patt)</strong>
+    </dt>
+    <dd>
+    Creates a simple capture, which captures the substring of the subject that
+ matches patt.  The captured value is a string. If patt has other captures,
+ their values are returned after this one.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">patt</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Carg"></a>
+    <strong>Carg (n)</strong>
+    </dt>
+    <dd>
+    Creates an argument capture.  This pattern matches the empty string and
+ produces the value given as the nth extra argument given in the call to
+ lpeg.match.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Cb"></a>
+    <strong>Cb (name)</strong>
+    </dt>
+    <dd>
+    Creates a back capture.  This pattern matches the empty string and produces
+ the values produced by the most recent group capture named name.
+ Most recent means the last complete outermost group capture with the given
+ name. A Complete capture means that the entire pattern corresponding to the
+ capture has matched. An Outermost capture means that the capture is not
+ inside another complete capture.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Cc"></a>
+    <strong>Cc (...)</strong>
+    </dt>
+    <dd>
+    Creates a constant capture.  This pattern matches the empty string and
+ produces all given values as its captured values.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Cf"></a>
+    <strong>Cf (patt, func)</strong>
+    </dt>
+    <dd>
+
+<p>Creates a fold capture.  If patt produces a list of captures C1 C2 ... Cn,
+ this capture will produce the value func(...func(func(C1, C2), C3)..., Cn),
+ that is, it will fold (or accumulate, or reduce) the captures from patt using
+ function func.</p>
+
+<p> This capture assumes that patt should produce at least one capture with at
+ least one value (of any type), which becomes the initial value of an
+ accumulator. (If you need a specific initial value, you may prefix a constant
+ capture to patt.) For each subsequent capture LPeg calls func with this
+ accumulator as the first argument and all values produced by the capture as
+ extra arguments; the value returned by this call becomes the new value for
+ the accumulator. The final value of the accumulator becomes the captured
+ value.</p>
+
+<p> As an example, the following pattern matches a list of numbers separated by
+ commas and returns their addition:</p>
+
+
+<pre>
+<span class="comment">-- matches a numeral and captures its value
+</span>number = lpeg.R<span class="string">"09"</span>^<span class="number">1</span> / <span class="global">tonumber</span>
+<span class="comment">-- matches a list of numbers, captures their values
+</span>list = number * (<span class="string">","</span> * number)^<span class="number">0</span>
+<span class="comment">-- auxiliary function to add two numbers
+</span><span class="keyword">function</span> add (acc, newvalue) <span class="keyword">return</span> acc + newvalue <span class="keyword">end</span>
+<span class="comment">-- folds the list of numbers adding them
+</span>sum = lpeg.Cf(list, add)
+<span class="comment">-- example of use
+</span><span class="global">print</span>(sum:match(<span class="string">"10,30,43"</span>))   <span class="comment">--&gt; 83
+</span>
+</pre>
+
+
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">patt</span>
+
+
+
+        </li>
+        <li><span class="parameter">func</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Cg"></a>
+    <strong>Cg (patt, name)</strong>
+    </dt>
+    <dd>
+    Creates a group capture.  It groups all values returned by patt into a single
+ capture. The group may be anonymous (if no name is given) or named with the
+ given name.
+ An anonymous group serves to join values from several captures into a single
+ capture. A named group has a different behavior. In most situations, a named
+ group returns no values at all. Its values are only relevant for a following
+ back capture or when used inside a table capture.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">patt</span>
+
+
+
+        </li>
+        <li><span class="parameter">name</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Cp"></a>
+    <strong>Cp ()</strong>
+    </dt>
+    <dd>
+    Creates a position capture.  It matches the empty string and captures the
+ position in the subject where the match occurs. The captured value is a
+ number.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Cs"></a>
+    <strong>Cs (patt)</strong>
+    </dt>
+    <dd>
+    Creates a substitution capture, which captures the substring of the subject
+ that matches patt, with substitutions.  For any capture inside patt with a
+ value, the substring that matched the capture is replaced by the capture
+ value (which should be a string). The final captured value is the string
+ resulting from all replacements.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">patt</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Ct"></a>
+    <strong>Ct (patt)</strong>
+    </dt>
+    <dd>
+    Creates a table capture.  This capture creates a table and puts all values
+ from all anonymous captures made by patt inside this table in successive
+ integer keys, starting at 1. Moreover, for each named capture group created
+ by patt, the first value of the group is put into the table with the group
+ name as its key. The captured value is only the table.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">patt</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Cmt"></a>
+    <strong>Cmt (patt, function)</strong>
+    </dt>
+    <dd>
+    Creates a match-time capture.  Unlike all other captures, this one is
+ evaluated immediately when a match occurs. It forces the immediate evaluation
+ of all its nested captures and then calls function.
+ The given function gets as arguments the entire subject, the current position
+ (after the match of patt), plus any capture values produced by patt.
+ The first value returned by function defines how the match happens. If the
+ call returns a number, the match succeeds and the returned number becomes the
+ new current position. (Assuming a subject s and current position i, the
+ returned number must be in the range [i, len(s) + 1].) If the call returns
+ true, the match succeeds without consuming any input. (So, to return true is
+ equivalent to return i.) If the call returns false, nil, or no value, the
+ match fails.
+ Any extra values returned by the function become the values produced by the
+ capture.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">patt</span>
+
+
+
+        </li>
+        <li><span class="parameter">function</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>

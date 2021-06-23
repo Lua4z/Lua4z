@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: Installing</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><span ><strong>Installing</strong></span>
+   <ul>
+     <li><a href="#System_requirements">System requirements </a></li>
+     <li><a href="#Skills_required">Skills required </a></li>
+     <li><a href="#Overview">Overview </a></li>
+     <li><a href="#Procedure">Procedure </a></li>
+</ul>
+  </li>
+      <li><a href="../manual/using.md.html"><span >Running Lua programs on z/OS</span></a></li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><a href="../manual/rexx.md.html"><span >Lua for REXX developers</span></a></li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><a href="../modules/ispf.lmmlist.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf.lmmlist</span></a></li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><a href="../modules/coroutine.html"><span class='module-std' title='Lua standard library'>coroutine</span></a></li>
+      <li><a href="../modules/debug.html"><span class='module-std' title='Lua standard library'>debug</span></a></li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><a href="../modules/iconv.html"><span class='module-ext title='Lua extension'>iconv</span></a></li>
+      <li><a href="../modules/io.html"><span class='module-std' title='Lua standard library'>io</span></a></li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><a href="../modules/lpeg.html"><span class='module-ext title='Lua extension'>lpeg</span></a></li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><a href="../modules/os.html"><span class='module-std' title='Lua standard library'>os</span></a></li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><a href="../modules/string.html"><span class='module-std' title='Lua standard library'>string</span></a></li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><a href="../examples/iconvs.lua.html"><span >iconvs.lua</span></a></li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><a href="../examples/pdsdir.lua.html"><span >pdsdir.lua</span></a></li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+</div>
+<div id="content">
+
+<h1>Installing</h1>
+
+
+<p><a name="System_requirements"></a></p>
+<h2>System requirements</h2>
+
+<p>Lua4z requires z/OS 1.12, or later.</p>
+
+<p><a name="Skills_required"></a></p>
+<h2>Skills required</h2>
+
+<p>To install Lua4z, you need to know how to:</p>
+
+<ul>
+    <li><p>Transfer files to z/OS UNIX</p></li>
+    <li><p>Enter commands at a z/OS UNIX command prompt</p></li>
+</ul>
+
+<p>To configure your system to run Lua programs on z/OS UNIX, you should understand symlinks
+and how to define environment variables: for example, to add the Lua4z bin directory to PATH.</p>
+
+<p>To configure your system to run Lua programs on MVS (including TSO/E), you need to know how to:</p>
+
+<ul>
+    <li><p>Add data sets to LINKLIST or edit TSO/E logon procedures</p></li>
+    <li><p>Edit MVS data sets in the ISPF editor</p></li>
+</ul>
+
+<p>To configure your system to run Lua programs from an ISPF command prompt without specifying the command prefix <code>TSO</code>,
+you need to know how to add verbs to an ISPF command table.</p>
+
+
+<p><a name="Overview"></a></p>
+<h2>Overview</h2>
+
+<p>Lua4z is distributed as a single file, with file extension .bin, available from the <a href="http://lua4z.com">Lua4z website</a>.
+The .bin file is a self-extracting installation script.</p>
+
+<p><span class="sidebar">More specifically, the .bin file is a z/OS UNIX shell script,
+encoded in EBCDIC code page 1047, that includes a compressed binary payload in pax.z format.</span></p>
+
+<p>To install Lua4z, you transfer the .bin file to your z/OS UNIX file system and then run it.
+The script uncompresses its payload (the Lua4z distribution directories),
+and then runs a second installation script included in that payload.</p>
+
+<h3>Distribution directories</h3>
+
+<p>The installation script prompts you for the path of a Lua4z home directory in z/OS UNIX,
+and then uncompresses the following directories under that home directory:</p>
+
+
+<table>
+<caption>Lua4z distribution directories</caption>
+<tr>
+<th>Name</th>
+<th>Contents</th>
+</tr>
+<tr>
+<td>bin</td>
+<td>Executable programs.</td>
+</tr>
+<tr>
+<td>doc</td>
+<td>Lua4z documentation in HTML format. Start browsing at the index.html file.
+<p>These files are also published on the <a href="http://lua4z.com/doc">Lua4z website</a>.
+The website might contain more recent documentation than this
+downloaded distribution directory.</p></td>
+</tr>
+<tr>
+<td>examples</td>
+<td>Example files, including example Lua programs.</td>
+</tr>
+<tr>
+<td>include</td>
+<td>C/C++ header files.
+<p>These files are useful if you want to use the Lua C programming API.</p>
+<p>If you just want to develop and run Lua programs, you do not need these files.</p>
+</td>
+</tr>
+<tr>
+<td>install</td>
+<td>The second installation script, written in Lua.</td>
+</tr>
+<tr>
+<td>lib</td>
+<td>Shared object (.so) files, including the shared object for
+the Lua standard libraries (liblua.so) and files for Lua extensions.</td>
+</tr>
+<tr>
+<td>loadmodules</td>
+<td>MVS-specific versions of the Lua interpreter, compiler, and standard libraries.</td>
+</tr>
+<tr>
+<td>man</td>
+<td>UNIX <code>man</code> page directory. Empty.</td>
+</tr>
+<tr>
+<td>share</td>
+<td>Lua programs (.lua files) for Lua extensions.
+<p>Some Lua extensions are shared object (.so) files; some are Lua program (.lua) files; some
+consist of both types of file. The .so files are distributed in the lib directory;
+the .lua files are distributed in this share directory.</p>
+</td>
+</tr>
+</table>
+
+
+<h3>MVS data sets</h3>
+
+<p>The installation script copies files from the distribution directories into the
+following MVS data sets. The data set names shown here are the names suggested
+by the installation script; you can specify your own names. If the data sets
+do not exist, the installation script allocates them.</p>
+
+
+<table>
+<caption>Lua4z MVS data sets</caption>
+<tr>
+<th>Default data set name</th>
+<th>Contents</th>
+</tr>
+<tr>
+<td>SYS1.LUA4Z.LOADLIB</td>
+<td>Library containing MVS-specific versions of the Lua interpreter, compiler, and standard libraries.
+<p>Copied from the loadmodules distribution directory.</p></td>
+</tr>
+<tr>
+<td>SYS1.LUA4Z.SAMPLIB</td>
+<td>Partitioned data set (PDS) containing sample files, including Lua programs.
+<p>Copied from the examples distribution directory.</p></td>
+</tr>
+</table>
+
+
+<p><a name="configuration"></a></p>
+<h3>Configuration: paths, environment variables, and symlinks</h3>
+
+<p>After installing the Lua4z distribution directories on your z/OS UNIX file system,
+the installation script configures your system to make the Lua4z files accessible in various paths.</p>
+
+<h4>Summary of configuration requirements</h4>
+
+<p>Before installing Lua4z, you need to understand what files Lua4z uses and in what paths those files need to be accessible:</p>
+
+<ul>
+    <li><p>The executable programs in the Lua4z bin directory must be accessible via the PATH environment variable.</p></li>
+    <li><p>The Lua standard libaries shared object file in the Lua4z lib directory, liblua.so, must be accessible via the LIBPATH environment variable.</p></li>
+    <li><p>The .so files for Lua extensions must be accessible via the Lua <code>package.cpath</code> property.
+    You can override the default value of <code>package.cpath</code> by defining a LUA_CPATH environment variable.</p></li>
+    <li><p>The Lua programs (.lua files) for Lua extensions must be accessible via the Lua <code>package.path</code> property.
+    You can override the default value of <code>package.path</code> by defining a LUA_PATH environment variable.</p></li>
+</ul>
+
+<p><span class="sidebar">For more details on how Lua uses <code>package.path</code> and <code>package.cpath</code>, see the
+<a href="http://www.lua.org/manual/5.1/manual.html">Lua Reference Manual</a>.</span></p>
+
+<p>If you accept all the defaults suggested by the installation script,
+the files will be accessible in the required paths without defining or modifying
+any environment variables.</p>
+
+<p>However, if you choose not to accept the defaults,
+you need to perform these configuration steps yourself.</p>
+
+<h4>PATH environment variable</h4>
+
+<p>To run Lua programs on z/OS UNIX,
+your PATH environment variable must refer to a directory that contains the Lua4z executable programs.
+The executable programs are supplied in the Lua4z bin directory.</p>
+
+<p>Here are two methods to meet this requirement:</p>
+
+<ul>
+    <li><p>The method offered by the installation script: in a directory that is already in your PATH, such as <code>/usr/local/bin</code>, create symlinks that refer to each of the files in the Lua4z bin directory.</p></li>
+    <li><p>Add the Lua4z bin directory to PATH.</p></li>
+</ul>
+
+<p>The PATH environment variable is only relevant when running Lua programs on z/OS UNIX.
+To run Lua programs on MVS (including TSO/E), Lua4z supplies MVS-specific versions of the Lua interpreter and the Lua standard libraries
+in the Lua4z loadmodules directory. The installation script copies these load modules to an MVS data set; you need to add this data set
+to your LINKLIST or STEPLIB concatenation.</p>
+
+<h4>LIBPATH environment variable</h4>
+
+<p>To run Lua programs on z/OS UNIX,
+your LIBPATH environment variable must refer to a directory that contains the standard libraries shared object file, liblua.so.
+This file is supplied in the Lua4z lib directory.</p>
+
+<p>Here are two methods to meet this requirement:</p>
+
+
+<ul>
+<li><p>The method offered by the installation script:
+in a directory that is already in your LIBPATH, such as <code>/usr/local/lib</code>, create a symlink that refers to the Lua4z lib directory.</p>
+</li>
+
+<li><p>Add the Lua4z lib directory to LIBPATH.</p>
+<p>If you want to run Lua programs on z/OS UNIX, use the <code>export</code> command to modify LIBPATH.</p>
+<p>If you want to run Lua programs on MVS, define LIBPATH in a <a href="using.md.html#luaconf">LUACONF member</a> of the LUA ddname.</p>
+</li>
+</ul>
+
+
+<p>To run Lua programs on MVS, the MVS-specific version of the Lua interpreter uses the standard libraries DLL that is in the same MVS data set as the interpreter,
+not the liblua.so file in the lib directory.
+However, Lua extension shared object files refer to the liblua.so file in the lib directory regardless
+of whether the Lua program that requires the extensions is run by the MVS version of the Lua interpreter or the z/OS UNIX version.</p>
+
+<h4>package.cpath and the LUA_CPATH environment variable</h4>
+
+<p>Lua programs can use the <a href="http://www.lua.org/manual/5.1/manual.html#pdf-require"><code>require</code></a> function to refer to shared object (.so) files, such as .so files supplied by Lua extensions.</p>
+
+<p>To locate shared object files, the <code>require</code> function searches a list of file path patterns specified by the Lua <code>package.cpath</code> property.
+<code>package.cpath</code> can be initialized by the LUA_CPATH environment variable.</p>
+
+<p>If LUA_CPATH is not defined, <code>package.cpath</code> has the following default value (line breaks shown here for presentation only):</p>
+
+
+<div><pre>
+<code>./?.so;
+/usr/local/lib/lua/5.1/?.so;
+/usr/local/lib/lua/5.1/loadall.so;
+//?</code>
+</pre></div>
+
+
+<p><strong>Tip:</strong> The <code>//?</code> pattern is a Lua4z-specific addition that enables the <code>require</code> function to search MVS data sets.</p>
+
+<p><code>package.cpath</code> must refer to the Lua4z lib directory.</p>
+
+<p>Here are two methods to meet this requirement:</p>
+
+
+<ul>
+<li><p>The method offered by the installation script: create a symlink that refers to the Lua4z lib directory.</p>
+<p>By default, the script creates the symlink in the <code>/usr/local/lib</code> directory.</p>
+</li>
+
+<li><p>Define a LUA_CPATH environment variable that refers to the Lua4z lib directory.</p>
+<p>For example, if the Lua4z home directory is <code>/u/myid/install/lua4z</code>:</p>
+<div><pre>
+<code>./?.so;
+/u/myid/install/lua4z/lib/lua/5.1/?.so;
+/u/myid/install/lua4z/lib/lua/5.1/loadall.so;
+//?</code>
+</pre></div>
+<p>If you want to run Lua programs on z/OS UNIX, use the <code>export</code> command to define LUA_CPATH.</p>
+<p>If you want to run Lua programs on MVS, define LUA_CPATH in a <a href="using.md.html#luaconf">LUACONF member</a> of the LUA ddname.</p>
+</li>
+</ul>
+
+
+<h4>package.path and the LUA_PATH environment variable</h4>
+
+<p>Lua programs can use the <a href="http://www.lua.org/manual/5.1/manual.html#pdf-require"><code>require</code></a> function to refer to other Lua programs, such as programs supplied by Lua extensions.</p>
+
+<p>To locate Lua programs, the <code>require</code> function searches a list of file path patterns specified by the Lua <code>package.path</code> property.
+<code>package.path</code> can be initialized by the LUA_PATH environment variable.</p>
+
+<p>If LUA_PATH is not defined, <code>package.path</code> has the following default value (line breaks shown here for presentation only):</p>
+
+
+<div><pre>
+<code>./?.lua;
+/usr/local/share/lua/5.1/?.lua;
+/usr/local/share/lua/5.1/?/init.lua;
+/usr/local/lib/lua/5.1/?.lua;
+/usr/local/lib/lua/5.1/?/init.lua;
+//DD:LUA(?)</code>
+</pre></div>
+
+
+<p><strong>Tip:</strong> The <code>//DD:LUA(?)</code> pattern is a Lua4z-specific addition that enables
+the <code>require</code> function to refer to members in the concatenation specified by the LUA ddname,
+such as members of MVS partitioned data sets.</p>
+
+<p><code>package.path</code> must refer to the Lua4z share directory.</p>
+
+<p>Here are two methods to meet this requirement:</p>
+
+
+<ul>
+<li><p>The method offered by the installation script: create a symlink that refers to the Lua4z share directory.
+By default, the script creates the symlink in the <code>/usr/local/share</code> directory.</p>
+</li>
+
+<li><p>Define a LUA_PATH environment variable that refers to the Lua4z share directory (and also, to match the
+default value of <code>package.path</code>, the lib directory). For example:</p>
+<div><pre>
+<code>./?.lua;
+/u/myid/install/lua4z/share/lua/5.1/?.lua;
+/u/myid/install/lua4z/share/lua/5.1/?/init.lua;
+/u/myid/install/lua4z/lib/lua/5.1/?.lua;
+/u/myid/install/lua4z/lib/lua/5.1/?/init.lua;
+//DD:LUA(?)</code>
+</pre></div>
+<p>If you want to run Lua programs on z/OS UNIX, use the <code>export</code> command to define LUA_PATH.</p>
+<p>If you want to run Lua programs on MVS, define LUA_PATH in a <a href="using.md.html#luaconf">LUACONF member</a> of the LUA ddname.</p>
+</li>
+</ul>
+
+
+<h4>Example configuration</h4>
+
+<p>Suppose that you accept none of the configuration defaults offered by the script,
+and that your Lua4z home directory is <code>/u/myid/install/lua4z</code>.
+You need to perform the following configuration steps.</p>
+
+<p>In the following examples, the home directory path is <span class="highlight">highlighted</span>
+to make it easy for you to replace this path with your own home directory.</p>
+
+<p>On z/OS UNIX:</p>
+
+<ol>
+    <li><p>Add the Lua4z bin directory to the <strong>PATH</strong> environment variable:</p>
+
+<div><pre>
+<code><span class="highlight">/u/myid/install/lua4z</span>/bin</code>
+</pre></div>
+</li>
+    <li><p>Add the Lua4z lib directory to the <strong>LIBPATH</strong> environment variable:</p>
+
+<div><pre>
+<code><span class="highlight">/u/myid/install/lua4z</span>/lib</code>
+</pre></div>
+</li>
+    <li><p>Define a <strong>LUA_CPATH</strong> environment variable that refers to the Lua4z lib directory:</p>
+
+<div><pre>
+<code>./?.so;
+<span class="highlight">/u/myid/install/lua4z</span>/lib/lua/5.1/?.so;
+<span class="highlight">/u/myid/install/lua4z</span>/lib/lua/5.1/loadall.so;
+//?</code>
+</pre></div>
+</li>
+    <li><p>Define a <strong>LUA_PATH</strong> environment variable that refers to the Lua4z share directory:</p>
+
+<div><pre>
+<code>./?.lua;
+<span class="highlight">/u/myid/install/lua4z</span>/share/lua/5.1/?.lua;
+<span class="highlight">/u/myid/install/lua4z</span>/share/lua/5.1/?/init.lua;
+//DD:LUA(?)</code>
+</pre></div>
+</li>
+</ol>
+
+<p>For example, you could add the following lines to your z/OS UNIX .profile file:</p>
+
+
+<div><pre>
+# Define a local variable for the Lua4z home directory
+LUA_HOME=<span class="highlight">/u/myid/install/lua4z</span>
+
+# Append the Lua4z bin directory to PATH
+export PATH="$PATH:$LUA_HOME/bin"
+
+# Append the Lua4z lib directory to LIBPATH
+export LIBPATH="$LIBPATH:$LUA_HOME/lib"
+
+# Define LUA_CPATH
+# Replace /usr/local in the default package.path
+# with the Lua4z home directory
+export LUA_CPATH="./?.so;\
+$LUA_HOME/lib/lua/5.1/?.so;\
+$LUA_HOME/lib/lua/5.1/loadall.so;\
+//?"
+
+# Define LUA_PATH
+# Replace /usr/local in the default package.path
+# with the Lua4z home directory
+export LUA_PATH="./?.lua;\
+$LUA_HOME/share/lua/5.1/?.lua;\
+$LUA_HOME/share/lua/5.1/?/init.lua;\
+$LUA_HOME/lib/lua/5.1/?.lua;\
+$LUA_HOME/lib/lua/5.1/?/init.lua;\
+//DD:LUA(?)"
+</pre></div>
+
+
+<p>On MVS:</p>
+
+<ol>
+    <li><p>Add the program library containing the MVS versions of the Lua interpreter and
+    shared libraries to the LINKLIST or STEPLIB concatenation; that is,
+    the STEPLIB ddname in your TSO/E logon procedure and in batch JCL
+    that invokes the Lua interpreter.</p></li>
+    <li><p>Define a LUA ddname in your TSO/E logon procedure and batch JCL that
+    refers to a partitioned data set.</p></li>
+    <li><p>In a partitioned data set referred to by the LUA ddname, create a LUACONF member
+containing the following single line:</p>
+
+<pre>
+<code>LUA_HOME = "<span class="highlight">/u/myid/install/lua4z</span>"</code>
+</pre>
+
+<p>LUA_HOME is a shortcut to defining individual values for LIBPATH, LUA_CPATH, and LUA_PATH.
+Defining LUA_HOME as shown is equivalent to the following definitions
+(line breaks between semicolons shown here for presentation only):</p>
+
+<pre>
+<code>LIBPATH = "<span class="highlight">/u/myid/install/lua4z</span>/lib"
+LUA_CPATH = "./?.so;
+<span class="highlight">/u/myid/install/lua4z</span>/lib/lua/5.1/?.so;
+<span class="highlight">/u/myid/install/lua4z</span>/lib/lua/5.1/loadall.so;
+//?"
+LUA_PATH = "./?.lua;
+<span class="highlight">/u/myid/install/lua4z</span>/share/lua/5.1/?.lua;
+<span class="highlight">/u/myid/install/lua4z</span>/share/lua/5.1/?/init.lua;
+<span class="highlight">/u/myid/install/lua4z</span>/lib/lua/5.1/?.lua;
+<span class="highlight">/u/myid/install/lua4z</span>/lib/lua/5.1/?/init.lua;
+//DD:LUA(?)"</code>
+</pre>
+</li>
+</ol>
+
+<p><a name="curl"></a>
+<a name="Procedure"></a></p>
+<h2>Procedure</h2>
+
+
+<ol>
+
+<li><p>Transfer the Lua4z .bin file from the Lua4z website to your z/OS UNIX file system (HFS or zFS).</p>
+<p>Here are two methods for transferring the file:</p>
+<ul>
+<li><p>Click the Download button on the home page of the <a href="http://lua4z.com">Lua4z website</a> to download the .bin file to your PC
+(or whatever device you are using to browse the web). Then transfer the file, using binary transfer, to your z/OS UNIX file system.</p></li>
+<li><p>Enter the following <code>curl</code> command at a z/OS UNIX command prompt
+to transfer the .bin file directly from the Lua4z website to the current z/OS UNIX directory:</p>
+<pre>
+<code>curl -O http://lua4z.com/download/lua4z-1.0.0.bin
+</code></pre>
+<p>This method is only available to you if:</p>
+<ul>
+<li>Your z/OS UNIX system has curl installed. curl is included in <a href="http://www.ibm.com/systems/z/os/zos/features/unix/port_tools.html">IBM Ported Tools for z/OS</a>.</li>
+<li>Your site security rules allow you to access public URLs.</li>
+</ul>
+</ul>
+</li>
+
+<li><p>Verify that the checksum and size of the .bin file match the authentic published file.</p>
+<p>Enter the following command at a z/OS UNIX command prompt, in the directory containing the .bin file:</p>
+<pre>
+<code>cksum lua4z-1.0.0.bin</code>
+</pre>
+<p>The command output should match the two numbers shown next to the Download button on the Lua4z website.</p>
+</li>
+
+<li><p>Check that your file system has enough free space.</p>
+<p>The installation script needs 23 megabytes of storage space to uncompress its payload.</p>
+<p>For example, to display the amount of free space in kilobytes in the directory <code>/usr/local</code>,
+enter the following command:</p>
+<pre>
+df -kP /usr/<span class="keyword">local</span>
+</pre>
+<p>This example command reports available space in kilobytes: Lua4z needs 23000.</p>
+</li>
+
+<li><p>Make the installation script executable.</p>
+<p>Enter the following command:</p>
+<pre>
+<code>chmod +x lua4z-1.0.0.bin</code>
+</pre>
+</li>
+
+<li><p>Run the script.</p>
+<p>Enter the script file name:</p>
+<pre>
+<code>./lua4z-1.0.0.bin</code>
+</pre>
+<p><strong>Note:</strong> The <code>./</code> prefix ensures that you run the .bin file that is in the current directory.</p>
+<p>The script interactively prompts you to answer questions and specify z/OS paths or MVS data set names.</p>
+<p>To accept a default value that the script suggests (in parentheses), press Enter.</p>
+<p>Here is an example transcript showing <span class="highlight">user input</span> and <span class="annotation">comments</span>:</p>
+<pre>
+MYID:/u/myid: ><span class="highlight">lua4z-1.0.0.bin</span>
+
+The Lua4z software license agreement is available on the web at:
+
+http://lua4z.com/license
+
+Please read the license carefully.
+
+The installed software includes a copy of the license
+in the lua4z/doc directory.
+
+Have you read, understood, and accepted the terms of the license? (yes or no)
+<span class="highlight">yes</span>
+Enter home directory (/usr/local/lua4z) : <span class="annotation">where to uncompress the distribution directories</span>
+<span class="highlight">/u/myid/install/lua4z</span>
+/u/myid/install/lua4z is not an existing directory, create it? (y/n) :
+<span class="highlight">y</span>
+
+Enter new or existing target PDSE load module library name
+(SYS1.LUA4Z.LOADLIB) <span class="annotation">where to copy the MVS-specific load modules</span>
+<span class="highlight">MYID.LUA4Z.LOADLIB</span>
+/u/myid/install/lua4z/loadmodules/LIBLUA -> MYID.LUA4Z.LOADLIB(LIBLUA): executable
+/u/myid/install/lua4z/loadmodules/LUA -> MYID.LUA4Z.LOADLIB(LUA): executable
+
+Enter new or existing target PDS for samples (SYS1.LUA4Z.SAMPLIB)
+<span class="highlight">MYID.LUA4Z.SAMPLIB</span>
+/u/myid/install/lua4z/examples/<var>filename</var> -> MYID.LUA4Z.SAMPLIB(<var>member</var>): <var>type</var>
+<span class="annotation">...one line for each example file copied...</span>
+
+Enter PATH directory in which to create command symlinks
+or 'none' (/usr/local/bin) <span class="annotation">a directory referred to by the PATH environment variable</span>
+<span class="highlight">/u/myid/bin</span>
+created symlink /u/myid/bin/lua -> /u/myid/install/lua4z/bin/lua
+created symlink /u/myid/bin/luac -> /u/myid/install/lua4z/bin/luac
+created symlink /u/myid/bin/ldoc -> /u/myid/install/lua4z/bin/ldoc
+created symlink /u/myid/bin/orbit -> /u/myid/install/lua4z/bin/orbit
+created symlink /u/myid/bin/wsapi -> /u/myid/install/lua4z/bin/wsapi
+
+Enter LIBPATH/LUA_CPATH directory in which to create shared object symlinks
+or 'none' (/usr/local/lib)
+<span class="highlight">/u/myid/lib</span>
+created symlink /u/myid/lib/liblua.so -> /u/myid/install/lua4z/lib/liblua.so
+created symlink /u/myid/lib/lua -> /u/myid/install/lua4z/lib/lua
+<span class="annotation">The LIBPATH environment variable must refer to the location of liblua.so.
+LUA_CPATH must refer to the location of the lib/lua directory.</span>
+
+Enter the LUA_PATH directory in which to create Lua module symlinks
+or 'none' (/usr/local/share)
+<span class="highlight">/u/myid/share</span>
+created symlink /u/myid/share/lua -> /u/myid/install/lua4z/share/lua
+
+Enter the include directory in which to create header file symlinks
+or 'none' (/usr/local/include)
+<span class="highlight">none</span>
+</pre>
+<p>If you accepted all the default values, continue to the next step.</p>
+<p>Otherwise, before continuing, perform the configuration steps as described in the overview.</p>
+</li>
+
+<li><p><a name="linklist"></a>If you want to run Lua programs on MVS (rather than only on z/OS UNIX),
+make the data set that contains the MVS version of the Lua interpreter available to users.</p>
+<p>Add the data set to either:</p>
+<ul>
+<li>The LINKLIST concatenation</li>
+<li>The STEPLIB ddname in your TSO/E logon procedure and in any JCL that invokes the Lua interpreter</li>
+</ul>
+</li>
+
+<li><p>If you want to run Lua programs on ISPF, add the following two verbs to an ISPF command table:</p>
+<table>
+<caption>ISPF command table verbs for the Lua interpreter</caption>
+<tr>
+<th>Verb</th>
+<th>Trunc</th>
+<th>Action</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>LUA</code></td>
+<td>0</td>
+<td><code>SELECT SUSPEND CMD(LUA &amp;ZPARM)</code></td>
+<td>Runs the Lua interpreter</td>
+</tr>
+<tr>
+<td><code>LUAP</code></td>
+<td>0</td>
+<td><code>SELECT SUSPEND CMD(LUA POSIX(ON)/&amp;ZPARM)</code></td>
+<td>Runs the Lua interpreter with the Language Environment runtime option <code>POSIX(ON)</code></td>
+</tr>
+</table>
+<p>These verbs enable you to invoke the Lua interpeter from an ISPF command prompt without specifying the command
+prefix <code>TSO</code>.</p>
+<p>You can either add these verbs yourself using ISPF option 3.9 or you can copy the USERCMDS member
+from the Lua4z SAMPLIB library to a library in your ISPTLIB concatenation.</p>
+</li>
+
+<li><p>Run the installation verification program supplied in the examples directory.</p>
+<p>Enter the following command at a z/OS UNIX command prompt. Replace <span class="highlight"><code>home</code></span> with your Lua4z home directory.</p>
+<pre>
+<code>lua <span class="highlight">home</span>/examples/<a href="../examples/ivp.lua.html#">ivp.lua</a></code>
+</pre>
+<p>Enter the following command at an ISPF command prompt. If you specified your own data set name
+for the MVS sample library, replace <span class="highlight"><code>SYS1.LUA4Z.SAMPLIB</code></span> with your data set name.</p>
+<pre>
+<code>lua "//'<span class="highlight">SYS1.LUA4Z.SAMPLIB</span>(IVP)'"</code>
+</pre>
+<p>If any path tests fail, run <a href="../examples/paths.lua.html#">paths.lua</a> to display the path values; for details on specifying correct path values, see the <a href="#configuration">overview</a>.</p>
+</li>
+
+</ol>
+
+
+<p>Next: learn more about <a href="../manual/using.md.html#">running Lua programs on z/OS</a>.</p>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>

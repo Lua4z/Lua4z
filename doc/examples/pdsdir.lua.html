@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: pdsdir.lua</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><a href="../examples/iconvs.lua.html"><span >iconvs.lua</span></a></li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><span ><strong>pdsdir.lua</strong></span>
+  </li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><a href="../modules/ispf.lmmlist.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf.lmmlist</span></a></li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><a href="../modules/coroutine.html"><span class='module-std' title='Lua standard library'>coroutine</span></a></li>
+      <li><a href="../modules/debug.html"><span class='module-std' title='Lua standard library'>debug</span></a></li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><a href="../modules/iconv.html"><span class='module-ext title='Lua extension'>iconv</span></a></li>
+      <li><a href="../modules/io.html"><span class='module-std' title='Lua standard library'>io</span></a></li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><a href="../modules/lpeg.html"><span class='module-ext title='Lua extension'>lpeg</span></a></li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><a href="../modules/os.html"><span class='module-std' title='Lua standard library'>os</span></a></li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><a href="../modules/string.html"><span class='module-std' title='Lua standard library'>string</span></a></li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><a href="../manual/install.md.html"><span >Installing</span></a></li>
+      <li><a href="../manual/using.md.html"><span >Running Lua programs on z/OS</span></a></li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><a href="../manual/rexx.md.html"><span >Lua for REXX developers</span></a></li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+</div>
+<div id="content">
+    <pre>
+<span class="comment">-- PDS directory iterator.
+</span><span class="comment">--
+</span><span class="comment">-- Uses Lua coroutines to create a PDS directory iterator.
+</span><span class="comment">--
+</span><span class="comment">-- Usage:
+</span><span class="comment">--
+</span><span class="comment">--   local pdsdir = require "pdsdir"
+</span><span class="comment">--   for member in pdsdir("'MY.PDS'") do print(member) end
+</span>
+<span class="keyword">local</span> struct  = <span class="global">require</span> <span class="string">"struct"</span>
+<span class="keyword">local</span> str = <span class="global">require</span> <span class="string">"pl.stringx"</span>
+
+<span class="keyword">local</span> <span class="global">unpack</span> = struct.<span class="global">unpack</span>
+<span class="keyword">local</span> x = <span class="global">string</span>.x2c
+printf = <span class="keyword">function</span>(...)  <span class="keyword">return</span> <span class="global">io</span>.write(<span class="global">string</span>.format(...)) <span class="keyword">end</span>
+
+<span class="keyword">local</span> <span class="keyword">function</span> pds_dir_iterator(dsname)
+  <span class="keyword">local</span> EOF = x<span class="string">'FFFFFFFFFFFFFFFF'</span> <span class="comment">-- end of directory marker
+</span>  <span class="keyword">local</span> endOfList = <span class="keyword">false</span>
+
+  <span class="comment">-- for each directory block in the PDS
+</span>  <span class="keyword">local</span> pds = <span class="global">assert</span>(<span class="global">io</span>.open(dsname, <span class="string">"rb"</span>))
+  <span class="keyword">repeat</span>
+    <span class="keyword">local</span> rec = pds:read(<span class="number">256</span>) <span class="comment">-- read a directory block
+</span>    <span class="keyword">if</span> <span class="keyword">not</span> rec <span class="keyword">then</span> <span class="keyword">break</span> <span class="keyword">end</span>
+    <span class="keyword">local</span> size, index = <span class="global">unpack</span>(<span class="string">"H"</span>,rec) <span class="comment">-- size of the block
+</span>    <span class="comment">-- for each directory entry in the block
+</span>    <span class="keyword">while</span> index &lt; size <span class="keyword">do</span>
+      <span class="keyword">local</span> member, ttr, info, userData
+      <span class="comment">-- unpack the directory entry
+</span>      member, ttr, info, index = <span class="global">unpack</span>(<span class="string">"c8I3I1"</span>,rec, index)
+      <span class="keyword">if</span> member == EOF <span class="keyword">then</span> <span class="comment">-- end of directory
+</span>        endOfList = <span class="keyword">true</span>; <span class="keyword">break</span>
+      <span class="keyword">end</span>
+      <span class="keyword">local</span> dataSize = bit32.band(info, <span class="number">0x1F</span>) * <span class="number">2</span> <span class="comment">-- size of user data
+</span>      <span class="keyword">if</span> dataSize &gt; <span class="number">0</span> <span class="keyword">then</span>
+        userData, index = <span class="global">unpack</span>(<span class="string">"c"</span>..dataSize, rec, index)
+      <span class="keyword">end</span>
+      <span class="comment">-- return the member name
+</span>      <span class="global">coroutine</span>.yield(str.rtrim(member))
+    <span class="keyword">end</span>
+  <span class="keyword">until</span> endOfList
+<span class="keyword">end</span>
+
+<span class="comment">-- return the PDS directory iterator
+</span><span class="keyword">return</span> <span class="keyword">function</span> (dsname)
+  <span class="keyword">return</span> <span class="global">coroutine</span>.wrap(<span class="keyword">function</span> () pds_dir_iterator(dsname) <span class="keyword">end</span>)
+<span class="keyword">end</span></pre>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>

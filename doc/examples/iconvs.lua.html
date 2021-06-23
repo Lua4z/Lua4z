@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: iconvs.lua</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><span ><strong>iconvs.lua</strong></span>
+  </li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><a href="../examples/pdsdir.lua.html"><span >pdsdir.lua</span></a></li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><a href="../modules/ispf.lmmlist.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf.lmmlist</span></a></li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><a href="../modules/coroutine.html"><span class='module-std' title='Lua standard library'>coroutine</span></a></li>
+      <li><a href="../modules/debug.html"><span class='module-std' title='Lua standard library'>debug</span></a></li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><a href="../modules/iconv.html"><span class='module-ext title='Lua extension'>iconv</span></a></li>
+      <li><a href="../modules/io.html"><span class='module-std' title='Lua standard library'>io</span></a></li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><a href="../modules/lpeg.html"><span class='module-ext title='Lua extension'>lpeg</span></a></li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><a href="../modules/os.html"><span class='module-std' title='Lua standard library'>os</span></a></li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><a href="../modules/string.html"><span class='module-std' title='Lua standard library'>string</span></a></li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><a href="../manual/install.md.html"><span >Installing</span></a></li>
+      <li><a href="../manual/using.md.html"><span >Running Lua programs on z/OS</span></a></li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><a href="../manual/rexx.md.html"><span >Lua for REXX developers</span></a></li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+</div>
+<div id="content">
+    <pre>
+<span class="comment">-- Convert input string from IBM-1047 to ISO8859-1 encoding
+</span>
+<span class="keyword">local</span> iconv = <span class="global">require</span>(<span class="string">"iconv"</span>)
+
+<span class="comment">-- Converts string to hex string
+</span><span class="comment">-- Source: luacode.org, Author: agw, License: MIT/X11
+</span><span class="keyword">function</span> <span class="global">string</span>.c2x(s, spacer)
+  <span class="keyword">return</span> (
+    <span class="global">string</span>.gsub(s,<span class="string">"(.)"</span>,
+    <span class="keyword">function</span> (c)
+      <span class="keyword">return</span> <span class="global">string</span>.format(<span class="string">"%02X%s"</span>, s.byte(c), spacer <span class="keyword">or</span> <span class="string">""</span>)
+    <span class="keyword">end</span>)
+  )
+<span class="keyword">end</span>
+
+<span class="comment">-- Inserts spacer after each character in a string
+</span><span class="keyword">function</span> <span class="global">string</span>.letterspace(s, spacer)
+  <span class="keyword">return</span> (
+    <span class="global">string</span>.gsub(s,<span class="string">"(.)"</span>,
+    <span class="keyword">function</span> (c)
+      <span class="keyword">return</span> <span class="global">string</span>.format(<span class="string">"%s%s"</span>, c, spacer)
+    <span class="keyword">end</span>)
+  )
+<span class="keyword">end</span>
+
+<span class="comment">-- Codesets
+</span><span class="comment">-- Assumes input string is IBM-1047 (not necessarily true!)
+</span><span class="keyword">local</span> from = <span class="string">"IBM-1047"</span>
+<span class="keyword">local</span> to = <span class="string">"ISO8859-1"</span>
+
+<span class="comment">-- Get string to convert from command line
+</span><span class="keyword">local</span> before = ...
+
+<span class="comment">-- If no input string supplied, display demo
+</span><span class="keyword">if</span> before == <span class="keyword">nil</span> <span class="keyword">then</span>
+  <span class="global">print</span>(<span class="string">"Converts encoding of input string from "</span> .. from .. <span class="string">" to "</span> .. to)
+  <span class="global">print</span>(<span class="string">"For example:"</span>)
+  before = <span class="string">"(ABC) [abc] {123}"</span>
+<span class="keyword">end</span>
+
+<span class="comment">-- Create conversion descriptor
+</span><span class="keyword">local</span> converter = iconv.new(to, from)
+
+<span class="comment">-- Convert string
+</span><span class="keyword">local</span> after = converter:iconv(before)
+
+<span class="comment">-- Print before and after
+</span><span class="global">print</span>(before:letterspace(<span class="string">"  "</span>))
+<span class="global">print</span>(before:c2x(<span class="string">" "</span>) .. from)
+<span class="global">print</span>(after:c2x(<span class="string">" "</span>) .. to)
+
+<span class="comment">-- Demo output:
+</span>
+<span class="comment">--   Converts encoding of input string from IBM-1047 to ISO8859-1
+</span><span class="comment">--   For example:
+</span><span class="comment">--   (  A  B  C  )     [  a  b  c  ]     {  1  2  3  }
+</span><span class="comment">--   4D C1 C2 C3 5D 40 AD 81 82 83 BD 40 C0 F1 F2 F3 D0 IBM-1047
+</span><span class="comment">--   28 41 42 43 29 20 5B 61 62 63 5D 20 7B 31 32 33 7D ISO8859-1
+</span></pre>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>

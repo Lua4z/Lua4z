@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: os</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><a href="../modules/ispf.lmmlist.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf.lmmlist</span></a></li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><a href="../modules/coroutine.html"><span class='module-std' title='Lua standard library'>coroutine</span></a></li>
+      <li><a href="../modules/debug.html"><span class='module-std' title='Lua standard library'>debug</span></a></li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><a href="../modules/iconv.html"><span class='module-ext title='Lua extension'>iconv</span></a></li>
+      <li><a href="../modules/io.html"><span class='module-std' title='Lua standard library'>io</span></a></li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><a href="../modules/lpeg.html"><span class='module-ext title='Lua extension'>lpeg</span></a></li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><span class='module-std' title='Lua standard library'><strong>os</strong></span>
+   <ul>
+     <li><a href="#Functions">Functions</a></li>
+</ul>
+  </li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><a href="../modules/string.html"><span class='module-std' title='Lua standard library'>string</span></a></li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><a href="../manual/install.md.html"><span >Installing</span></a></li>
+      <li><a href="../manual/using.md.html"><span >Running Lua programs on z/OS</span></a></li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><a href="../manual/rexx.md.html"><span >Lua for REXX developers</span></a></li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><a href="../examples/iconvs.lua.html"><span >iconvs.lua</span></a></li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><a href="../examples/pdsdir.lua.html"><span >pdsdir.lua</span></a></li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+</div>
+<div id="content">
+<h1>Module <code>os</code></h1>
+<p>Operating system (OS) standard library.</p>
+<p> Includes functions for file manipulation, for getting the current date and time, and other facilities related to the operating system.</p>
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#clock">clock ()</a></td>
+	<td class="summary">Returns an approximation of the amount in seconds of CPU time used by
+ the program.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#date">date (format, time)</a></td>
+	<td class="summary">Returns a string or a table containing date and time, formatted according
+ to the given string <code>format</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#difftime">difftime (t2, t1)</a></td>
+	<td class="summary">Returns the number of seconds from time <code>t1</code> to time <code>t2</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#execute">execute (command)</a></td>
+	<td class="summary">This function is equivalent to the C function <code>system()</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#exit">exit (code)</a></td>
+	<td class="summary">Calls the C function <code>exit</code>, with an optional <code>code</code>, to terminate the
+ host program.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getenv">getenv (varname)</a></td>
+	<td class="summary">Returns the value of the process environment variable <code>varname</code>, or
+ nil if the variable is not defined.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#remove">remove (filename)</a></td>
+	<td class="summary">Deletes the file or directory with the given name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rename">rename (oldname, newname)</a></td>
+	<td class="summary">Renames file or directory named <code>oldname</code> to <code>newname</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setlocale">setlocale (locale, category)</a></td>
+	<td class="summary">Sets the current locale of the program.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sleep"><span class="lua4z-only" title="Lua4z-only extension">sleep (seconds)</span></a></td>
+	<td class="summary">Sleeps for a number of seconds.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#storage"><span class="lua4z-only" title="Lua4z-only extension">storage (address, length)</span></a></td>
+	<td class="summary">Gets data from storage.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#time">time (table)</a></td>
+	<td class="summary">Returns the current time when called without arguments, or a time
+ representing the date and time specified by the given table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tmpname">tmpname ()</a></td>
+	<td class="summary">Returns a string with a file name that can be used for a temporary
+ file.</td>
+	</tr>
+</table>
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "clock"></a>
+    <strong>clock ()</strong>
+    </dt>
+    <dd>
+    Returns an approximation of the amount in seconds of CPU time used by
+ the program.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "date"></a>
+    <strong>date (format, time)</strong>
+    </dt>
+    <dd>
+    Returns a string or a table containing date and time, formatted according
+ to the given string <code>format</code>. </p>
+
+<p> If the <code>time</code> argument is present, this is the time to be formatted
+ (see the <code>os.time</code> function for a description of this value). Otherwise,
+ <code>date</code> formats the current time.</p>
+
+<p> If <code>format</code> starts with '<code>!</code>', then the date is formatted in Coordinated
+ Universal Time. After this optional character, if <code>format</code> is the string
+ "<code>*t</code>", then <code>date</code> returns a table with the following fields:</p>
+
+<ul>
+    <li><code>year</code> (four digits)</li>
+    <li><code>month</code> (1--12)</li>
+    <li><code>day</code> (1--31)</li>
+    <li><code>hour</code> (0--23)</li>
+    <li><code>min</code> (0--59)</li>
+    <li><code>sec</code> (0--61)</li>
+    <li><code>wday</code> (weekday, Sunday is 1)</li>
+    <li><code>yday</code> (day of the year)</li>
+    <li><code>isdst</code> (daylight saving flag, a boolean).</li>
+</ul>
+
+<p> If <code>format</code> is not "<code>*t</code>", then <code>date</code> returns the date as a string,
+ formatted according to the same rules as the C function <code>strftime</code>.
+ When called without arguments, <code>date</code> returns a reasonable date and time
+ representation that depends on the host system and on the current locale
+ (that is, <code>os.date()</code> is equivalent to <code>os.date("%c")</code>).
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">format</span>
+
+
+
+        </li>
+        <li><span class="parameter">time</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "difftime"></a>
+    <strong>difftime (t2, t1)</strong>
+    </dt>
+    <dd>
+    Returns the number of seconds from time <code>t1</code> to time <code>t2</code>.  In POSIX,
+ Windows, and some other systems, this value is exactly <code>t2</code><em>-</em><code>t1</code>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t2</span>
+
+
+
+        </li>
+        <li><span class="parameter">t1</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "execute"></a>
+    <strong>execute (command)</strong>
+    </dt>
+    <dd>
+    This function is equivalent to the C function <code>system()</code>.  It passes
+ <code>command</code> to be executed by an operating system shell. It returns a status
+ code, which is system-dependent. If <code>command</code> is absent, then it returns
+ nonzero if a shell is available and zero otherwise.</p>
+
+<p> <span class="sidebar"><strong>On z/OS</strong>, the behavior of the <code>system</code> function depends
+ on the specific z/OS environment in which your Lua program is running,
+ such as MVS batch, TSO/E, or z/OS UNIX.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">command</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The command to pass to the <code>system()</code> function.
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxbd00/systm.htm"><strong>system()</strong> z/OS C runtime library function</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "exit"></a>
+    <strong>exit (code)</strong>
+    </dt>
+    <dd>
+    Calls the C function <code>exit</code>, with an optional <code>code</code>, to terminate the
+ host program.  The default value for <code>code</code> is the success code.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">code</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getenv"></a>
+    <strong>getenv (varname)</strong>
+    </dt>
+    <dd>
+    Returns the value of the process environment variable <code>varname</code>, or
+ nil if the variable is not defined.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">varname</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "remove"></a>
+    <strong>remove (filename)</strong>
+    </dt>
+    <dd>
+    Deletes the file or directory with the given name.  Directories must be
+ empty to be removed. If this function fails, it returns nil, plus a string
+ describing the error.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rename"></a>
+    <strong>rename (oldname, newname)</strong>
+    </dt>
+    <dd>
+    Renames file or directory named <code>oldname</code> to <code>newname</code>.  If this function
+ fails, it returns nil, plus a string describing the error.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">oldname</span>
+
+
+
+        </li>
+        <li><span class="parameter">newname</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setlocale"></a>
+    <strong>setlocale (locale, category)</strong>
+    </dt>
+    <dd>
+    Sets the current locale of the program.  <code>locale</code> is a string specifying
+ a locale; <code>category</code> is an optional string describing which category to
+ change: <code>"all"</code>, <code>"collate"</code>, <code>"ctype"</code>, <code>"monetary"</code>, <code>"numeric"</code>, or
+ <code>"time"</code>; the default category is <code>"all"</code>. The function returns the name
+ of the new locale, or nil if the request cannot be honored.
+ If <code>locale</code> is the empty string, the current locale is set to an
+ implementation-defined native locale. If <code>locale</code> is the string "<code>C</code>",
+ the current locale is set to the standard C locale.
+ When called with nil as the first argument, this function only returns
+ the name of the current locale for the given category.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">locale</span>
+
+
+
+        </li>
+        <li><span class="parameter">category</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "sleep"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">sleep (seconds)</span></strong>
+    </dt>
+    <dd>
+    Sleeps for a number of seconds. </p>
+
+<p> <span class="sidebar">This function implements the POSIX library function
+ <code>nanosleep()</code> via the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxb100/ctw.htm"><strong>cond_timed_wait</strong> z/OS assembler callable service</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">seconds</span>
+            <span class="types"><span class="type">int</span></span>
+         Integer number of seconds to sleep.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "storage"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">storage (address, length)</span></strong>
+    </dt>
+    <dd>
+    Gets data from storage. </p>
+
+<p> <span class="sidebar">This function is similar to the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.ikja300/storge.htm"><strong>STORAGE</strong> z/OS TSO/E REXX external function</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">address</span>
+            <span class="types"><span class="type">int</span></span>
+         The start address of the storage.
+        </li>
+        <li><span class="parameter">length</span>
+            <span class="types"><span class="type">int</span></span>
+         The number of bytes to get.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>length</code> bytes of data from the specified <code>address</code> in storage.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "time"></a>
+    <strong>time (table)</strong>
+    </dt>
+    <dd>
+    Returns the current time when called without arguments, or a time
+ representing the date and time specified by the given table.  This table
+ must have fields <code>year</code>, <code>month</code>, and <code>day</code>, and may have fields <code>hour</code>,
+ <code>min</code>, <code>sec</code>, and <code>isdst</code> (for a description of these fields, see the
+ <code>os.date</code> function).
+ The returned value is a number, whose meaning depends on your system. In
+ POSIX, Windows, and some other systems, this number counts the number
+ of seconds since some given start time (the "epoch"). In other systems,
+ the meaning is not specified, and the number returned by <code>time</code> can be
+ used only as an argument to <code>date</code> and <code>difftime</code>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">table</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "tmpname"></a>
+    <strong>tmpname ()</strong>
+    </dt>
+    <dd>
+    Returns a string with a file name that can be used for a temporary
+ file.  The file must be explicitly opened before its use and explicitly
+ removed when no longer needed.
+ On some systems (POSIX), this function also creates a file with that
+ name, to avoid security risks. (Someone else might create the file with
+ wrong permissions in the time between getting the name and creating the
+ file.) You still have to open the file to use it and to remove it (even
+ if you do not use it).
+ When possible, you may prefer to use <code>io.tmpfile</code>, which automatically
+ removes the file when the program ends.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>

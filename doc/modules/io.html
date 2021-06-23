@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: io</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><a href="../modules/ispf.lmmlist.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf.lmmlist</span></a></li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><a href="../modules/coroutine.html"><span class='module-std' title='Lua standard library'>coroutine</span></a></li>
+      <li><a href="../modules/debug.html"><span class='module-std' title='Lua standard library'>debug</span></a></li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><a href="../modules/iconv.html"><span class='module-ext title='Lua extension'>iconv</span></a></li>
+      <li><span class='module-std' title='Lua standard library'><strong>io</strong></span>
+   <ul>
+     <li><a href="#Functions">Functions</a></li>
+     <li><a href="#Fields">Fields</a></li>
+</ul>
+  </li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><a href="../modules/lpeg.html"><span class='module-ext title='Lua extension'>lpeg</span></a></li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><a href="../modules/os.html"><span class='module-std' title='Lua standard library'>os</span></a></li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><a href="../modules/string.html"><span class='module-std' title='Lua standard library'>string</span></a></li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><a href="../manual/install.md.html"><span >Installing</span></a></li>
+      <li><a href="../manual/using.md.html"><span >Running Lua programs on z/OS</span></a></li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><a href="../manual/rexx.md.html"><span >Lua for REXX developers</span></a></li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><a href="../examples/iconvs.lua.html"><span >iconvs.lua</span></a></li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><a href="../examples/pdsdir.lua.html"><span >pdsdir.lua</span></a></li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+</div>
+<div id="content">
+<h1>Module <code>io</code></h1>
+<p>I/O standard library for manipulating files.</p>
+<p>
+
+</p>
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#bpxwdyn"><span class="lua4z-only" title="Lua4z-only extension">bpxwdyn (s)</span></a></td>
+	<td class="summary">Calls the BPXWDYN service, a text interface to dynamic allocation and dynamic output.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#close">close (file)</a></td>
+	<td class="summary">Equivalent to <code>file:close()</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#flush">flush ()</a></td>
+	<td class="summary">Equivalent to <code>file:flush</code> over the default output file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#input">input (file)</a></td>
+	<td class="summary">When called with a file name, it opens the named file (in text mode),
+ and sets its handle as the default input file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#lines">lines (filename)</a></td>
+	<td class="summary">Opens the given file name in read mode and returns an iterator function
+ that, each time it is called, returns a new line from the file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#open">open (filename, mode)</a></td>
+	<td class="summary">Opens a file in the mode specified in the string <code>mode</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#output">output (file)</a></td>
+	<td class="summary">Similar to <code>io.input</code>, but operates over the default output file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#popen">popen (prog, mode)</a></td>
+	<td class="summary">Starts program <code>prog</code> in a separated process and returns a file handle
+ that you can use to read data from this program (if <code>mode</code> is <code>"r"</code>,
+ the default) or to write data to this program (if <code>mode</code> is <code>"w"</code>).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#read">read (...)</a></td>
+	<td class="summary">Equivalent to <code>io.input():read</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tmpfile">tmpfile ()</a></td>
+	<td class="summary">Returns a handle for a temporary file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#type">type (obj)</a></td>
+	<td class="summary">Checks whether <code>obj</code> is a valid file handle.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#write">write (...)</a></td>
+	<td class="summary">Equivalent to <code>io.output():write</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:blksize"><span class="lua4z-only" title="Lua4z-only extension">file:blksize ()</span></a></td>
+	<td class="summary">Gets the block size of the file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:close">file:close ()</a></td>
+	<td class="summary">Closes <code>file</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:delrec"><span class="lua4z-only" title="Lua4z-only extension">file:delrec ()</span></a></td>
+	<td class="summary">Deletes a record from a VSAM file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:flush">file:flush ()</a></td>
+	<td class="summary">Saves any written data to <code>file</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:lines">file:lines ()</a></td>
+	<td class="summary">Returns an iterator function that, each time it is called, returns a
+ new line from the file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:locate"><span class="lua4z-only" title="Lua4z-only extension">file:locate (key)</span></a></td>
+	<td class="summary">Locates a VSAM record.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:lrecl"><span class="lua4z-only" title="Lua4z-only extension">file:lrecl ()</span></a></td>
+	<td class="summary">Gets the logical record length (LRECL) of the file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:recfm"><span class="lua4z-only" title="Lua4z-only extension">file:recfm ()</span></a></td>
+	<td class="summary">Gets the record format (RECFM) of the file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:openmode">file:openmode ()</a></td>
+	<td class="summary">Returns the mode that the file was opened with:
+ "binary", "record", or "text".</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:read">file:read (...)</a></td>
+	<td class="summary">Reads the file <code>file</code>, according to the given formats, which specify
+ what to read.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:rewind">file:rewind ()</a></td>
+	<td class="summary">Set the file position to the beginning of the file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:seek">file:seek (whence, offset)</a></td>
+	<td class="summary">Sets and gets the file position, measured from the beginning of the
+ file, to the position given by <code>offset</code> plus a base specified by the string
+ <code>whence</code>, as follows:
+   "set": base is position 0 (beginning of the file);
+   "cur": base is current position;
+   "end": base is end of file;
+ In case of success, function <code>seek</code> returns the final file position,
+ measured in bytes from the beginning of the file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:setvbuf">file:setvbuf (mode, size)</a></td>
+	<td class="summary">Sets the buffering mode for an output file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:update"><span class="lua4z-only" title="Lua4z-only extension">file:update (buf)</span></a></td>
+	<td class="summary">Updates a VSAM record.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:vsamRBA"><span class="lua4z-only" title="Lua4z-only extension">file:vsamRBA ()</span></a></td>
+	<td class="summary">Gets the relative byte address (RBA) of the last VSAM record inserted or updated.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:vsamtype"><span class="lua4z-only" title="Lua4z-only extension">file:vsamtype ()</span></a></td>
+	<td class="summary">Gets the VSAM type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#file:write">file:write (...)</a></td>
+	<td class="summary">Writes the value of each of its arguments to the <code>file</code>.</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#LOCATE_KEY_FIRST">LOCATE_KEY_FIRST</a></td>
+	<td class="summary">
+
+</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#LOCATE_KEY_LAST">LOCATE_KEY_LAST</a></td>
+	<td class="summary">
+
+</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#LOCATE_KEY_EQ">LOCATE_KEY_EQ</a></td>
+	<td class="summary">
+
+</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#LOCATE_KEY_EQ_BWD">LOCATE_KEY_EQ_BWD</a></td>
+	<td class="summary">
+
+</td>
+	</tr>
+</table>
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "bpxwdyn"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">bpxwdyn (s)</span></strong>
+    </dt>
+    <dd>
+    Calls the BPXWDYN service, a text interface to dynamic allocation and dynamic output. </p>
+
+<p> For details, see the IBM documentation for
+ <a href="http://www-01.ibm.com/support/knowledgecenter/SSLTBW_1.12.0/com.ibm.zos.r12.bpxb600/wdyn.htm%23wdyn">bpxwdyn</a>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The BPXWDYN parameter string.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "close"></a>
+    <strong>close (file)</strong>
+    </dt>
+    <dd>
+    Equivalent to <code>file:close()</code>.  Without a <code>file</code>, closes the default
+ output file.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">file</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "flush"></a>
+    <strong>flush ()</strong>
+    </dt>
+    <dd>
+    Equivalent to <code>file:flush</code> over the default output file.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "input"></a>
+    <strong>input (file)</strong>
+    </dt>
+    <dd>
+    When called with a file name, it opens the named file (in text mode),
+ and sets its handle as the default input file.  When called with a file
+ handle, it simply sets this file handle as the default input file. When
+ called without parameters, it returns the current default input file.
+ In case of errors this function raises the error, instead of returning an
+ error code.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">file</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "lines"></a>
+    <strong>lines (filename)</strong>
+    </dt>
+    <dd>
+    Opens the given file name in read mode and returns an iterator function
+ that, each time it is called, returns a new line from the file.  Therefore,
+ the construction</p>
+
+
+<pre>
+<span class="keyword">for</span> line <span class="keyword">in</span> <span class="global">io</span>.lines(filename) <span class="keyword">do</span> *body* <span class="keyword">end</span>
+</pre>
+
+<p> will iterate over all lines of the file. When the iterator function detects
+ the end of file, it returns nil (to finish the loop) and automatically
+ closes the file.</p>
+
+<p> The call <code>io.lines()</code> (with no file name) is equivalent to
+ <code>io.input():lines()</code>; that is, it iterates over the lines of the default
+ input file. In this case it does not close the file when the loop ends.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "open"></a>
+    <strong>open (filename, mode)</strong>
+    </dt>
+    <dd>
+    Opens a file in the mode specified in the string <code>mode</code>.
+ It returns a new file handle, or, in case of errors, <code>nil</code> plus an error message.</p>
+
+<p> <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxbd00/fopen.htm"><strong>fopen()</strong> z/OS C runtime library function</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+         The name of the file to open.
+        </li>
+        <li><span class="parameter">mode</span>
+         A string specifying the type of access requested for the file.
+ For details, see the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxbd00/fopen.htm"><strong>fopen()</strong> z/OS C runtime library function</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        A file handle.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="comment">-- Open a sequential binary data set for reading
+</span> <span class="keyword">local</span> file = <span class="global">io</span>.open(<span class="string">"//'PAY.SEQ'"</span>, <span class="string">"rb, type=record, noseek"</span>)
+
+ <span class="comment">-- Open a PDS member for reading text
+</span> <span class="keyword">local</span> file = <span class="global">io</span>.open(<span class="string">"//PDS(MEMBER)"</span>, <span class="string">"rt, type=record"</span>)
+
+ <span class="comment">-- Open a z/OS UNIX file for writing
+</span> <span class="keyword">local</span> file = <span class="global">io</span>.open(<span class="string">"/u/lua/readme.md"</span>, <span class="string">"w"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "output"></a>
+    <strong>output (file)</strong>
+    </dt>
+    <dd>
+    Similar to <code>io.input</code>, but operates over the default output file.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">file</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "popen"></a>
+    <strong>popen (prog, mode)</strong>
+    </dt>
+    <dd>
+    Starts program <code>prog</code> in a separated process and returns a file handle
+ that you can use to read data from this program (if <code>mode</code> is <code>"r"</code>,
+ the default) or to write data to this program (if <code>mode</code> is <code>"w"</code>).
+ This function is system dependent and is not available on all platforms.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">prog</span>
+
+
+
+        </li>
+        <li><span class="parameter">mode</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "read"></a>
+    <strong>read (...)</strong>
+    </dt>
+    <dd>
+    Equivalent to <code>io.input():read</code>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "tmpfile"></a>
+    <strong>tmpfile ()</strong>
+    </dt>
+    <dd>
+    Returns a handle for a temporary file.  This file is opened in update
+ mode and it is automatically removed when the program ends.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "type"></a>
+    <strong>type (obj)</strong>
+    </dt>
+    <dd>
+    Checks whether <code>obj</code> is a valid file handle.  Returns the string <code>"file"</code>
+ if <code>obj</code> is an open file handle, <code>"closed file"</code> if <code>obj</code> is a closed file
+ handle, or nil if <code>obj</code> is not a file handle.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">obj</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "write"></a>
+    <strong>write (...)</strong>
+    </dt>
+    <dd>
+    Equivalent to <code>io.output():write</code>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:blksize"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">file:blksize ()</span></strong>
+    </dt>
+    <dd>
+    Gets the block size of the file.
+
+    </ul>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        An integer that represent the block size of the file in bytes.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:close"></a>
+    <strong>file:close ()</strong>
+    </dt>
+    <dd>
+    Closes <code>file</code>.  Note that files are automatically closed when their
+ handles are garbage collected, but that takes an unpredictable amount of
+ time to happen.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:delrec"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">file:delrec ()</span></strong>
+    </dt>
+    <dd>
+    Deletes a record from a VSAM file. </p>
+
+<p> The file must have been previously read by the <code>read</code> function to set the position.</p>
+
+<p> <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxbd00/fdelrec.htm"><strong>fdelrec()</strong> z/OS C runtime library function</a>.</span>
+
+    </ul>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> if the delete was successful, otherwise <code>false</code>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:flush"></a>
+    <strong>file:flush ()</strong>
+    </dt>
+    <dd>
+    Saves any written data to <code>file</code>.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:lines"></a>
+    <strong>file:lines ()</strong>
+    </dt>
+    <dd>
+    Returns an iterator function that, each time it is called, returns a
+ new line from the file.  Therefore, the construction
+   for line in file:lines() do <em>body</em> end
+ will iterate over all lines of the file. (Unlike <code>io.lines</code>, this function
+ does not close the file when the loop ends.)
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:locate"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">file:locate (key)</span></strong>
+    </dt>
+    <dd>
+    Locates a VSAM record. </p>
+
+<p> <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxbd00/flocate.htm"><strong>flocate()</strong> z/OS C runtime library function</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+         The key used for positioning. If <code>key</code> is a number
+ it is either a VSAM record number (for RRDS) or an
+ RBA. Otherwise, <code>key</code> is a character string.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> if the locate was successful, otherwise <code>false</code>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:lrecl"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">file:lrecl ()</span></strong>
+    </dt>
+    <dd>
+    Gets the logical record length (LRECL) of the file.
+
+    </ul>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        An integer that represents the LRECL of the file in bytes.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:recfm"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">file:recfm ()</span></strong>
+    </dt>
+    <dd>
+    Gets the record format (RECFM) of the file.
+
+    </ul>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        A string. For example, "FB" for a fixed-blocked data set.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:openmode"></a>
+    <strong>file:openmode ()</strong>
+    </dt>
+    <dd>
+    Returns the mode that the file was opened with:
+ "binary", "record", or "text".
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:read"></a>
+    <strong>file:read (...)</strong>
+    </dt>
+    <dd>
+
+<p>Reads the file <code>file</code>, according to the given formats, which specify
+ what to read.  For each format, the function returns a string (or a number)
+ with the characters read, or nil if it cannot read data with the specified
+ format. When called without formats, it uses a default format that reads
+ the entire next line (see below).</p>
+
+<p> The available formats are:</p>
+
+<ul>
+    <li>"*n": reads a number; this is the only format that returns a number
+    instead of a string.</li>
+    <li>"*a": reads the whole file, starting at the current position. On end of
+    file, it returns the empty string.</li>
+    <li>"*l": reads the next line (skipping the end of line), returning nil on
+    end of file. This is the default format when the file is opened in text
+    mode.</li>
+    <li>"*r": reads the next record, returning nil on
+    end of file. This is the default format when the file is opened in record
+    mode.</li>
+    <li>*number*: reads a string with up to this number of characters, returning
+    nil on end of file. If number is zero, it reads nothing and returns an
+    empty string, or nil on end of file.</li>
+</ul>
+
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:rewind"></a>
+    <strong>file:rewind ()</strong>
+    </dt>
+    <dd>
+    Set the file position to the beginning of the file.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:seek"></a>
+    <strong>file:seek (whence, offset)</strong>
+    </dt>
+    <dd>
+    Sets and gets the file position, measured from the beginning of the
+ file, to the position given by <code>offset</code> plus a base specified by the string
+ <code>whence</code>, as follows:
+   "set": base is position 0 (beginning of the file);
+   "cur": base is current position;
+   "end": base is end of file;
+ In case of success, function <code>seek</code> returns the final file position,
+ measured in bytes from the beginning of the file.  If this function fails,
+ it returns nil, plus a string describing the error.
+ The default value for <code>whence</code> is <code>"cur"</code>, and for <code>offset</code> is 0. Therefore,
+ the call <code>file:seek()</code> returns the current file position, without changing
+ it; the call <code>file:seek("set")</code> sets the position to the beginning of the
+ file (and returns 0); and the call <code>file:seek("end")</code> sets the position
+ to the end of the file, and returns its size.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">whence</span>
+
+
+
+        </li>
+        <li><span class="parameter">offset</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:setvbuf"></a>
+    <strong>file:setvbuf (mode, size)</strong>
+    </dt>
+    <dd>
+
+<p>Sets the buffering mode for an output file.  There are three available
+ modes:</p>
+
+<ul>
+    <li>"no": no buffering; the result of any output operation appears immediately.</li>
+    <li>"full": full buffering; output operation is performed only when the
+    buffer is full (or when you explicitly <code>flush</code> the file (see <code>io.flush</code>)).</li>
+    <li>"line": line buffering; output is buffered until a newline is output or
+    there is any input from some special files (such as a terminal device).
+    For the last two cases, <code>size</code> specifies the size of the buffer, in
+    bytes. The default is an appropriate size.</li>
+</ul>
+
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">mode</span>
+
+
+
+        </li>
+        <li><span class="parameter">size</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:update"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">file:update (buf)</span></strong>
+    </dt>
+    <dd>
+    Updates a VSAM record. </p>
+
+<p> <span class="sidebar">This function calls the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxbd00/fupdvsm.htm"><strong>fupdate()</strong> z/OS C runtime library function</a>.</span>
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">buf</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to update the current record with.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        An integer that represents the size of the updated record in bytes.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:vsamRBA"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">file:vsamRBA ()</span></strong>
+    </dt>
+    <dd>
+    Gets the relative byte address (RBA) of the last VSAM record inserted or updated. </p>
+
+<p> Undefined for non-VSAM files.
+
+    </ul>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        A 4-byte integer from the C library <strong>amrc.</strong>RBA field.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:vsamtype"></a>
+    <strong><span class="lua4z-only" title="Lua4z-only extension">file:vsamtype ()</span></strong>
+    </dt>
+    <dd>
+    Gets the VSAM type.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "file:write"></a>
+    <strong>file:write (...)</strong>
+    </dt>
+    <dd>
+    Writes the value of each of its arguments to the <code>file</code>.  The arguments
+ must be strings or numbers. To write other values, use <code>tostring</code> or
+ <code>string.format</code> before <code>write</code>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Fields"></a>Fields</h2>
+    <dl class="function">
+    <dt>
+    <a name = "LOCATE_KEY_FIRST"></a>
+    <strong>LOCATE_KEY_FIRST</strong>
+    </dt>
+    <dd>
+
+
+    </ul>
+    </ul>
+
+    <ul>
+        <li><span class="parameter">LOCATE_KEY_FIRST</span>
+         locate() constant value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "LOCATE_KEY_LAST"></a>
+    <strong>LOCATE_KEY_LAST</strong>
+    </dt>
+    <dd>
+
+
+    </ul>
+    </ul>
+
+    <ul>
+        <li><span class="parameter">LOCATE_KEY_LAST</span>
+         locate() constant value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "LOCATE_KEY_EQ"></a>
+    <strong>LOCATE_KEY_EQ</strong>
+    </dt>
+    <dd>
+
+
+    </ul>
+    </ul>
+
+    <ul>
+        <li><span class="parameter">LOCATE_KEY_EQ</span>
+         locate() constant value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "LOCATE_KEY_EQ_BWD"></a>
+    <strong>LOCATE_KEY_EQ_BWD</strong>
+    </dt>
+    <dd>
+
+
+    </ul>
+    </ul>
+
+    <ul>
+        <li><span class="parameter">LOCATE_KEY_EQ_BWD</span>
+         locate() constant value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>

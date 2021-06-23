@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: debug</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><a href="../modules/ispf.lmmlist.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf.lmmlist</span></a></li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><a href="../modules/coroutine.html"><span class='module-std' title='Lua standard library'>coroutine</span></a></li>
+      <li><span class='module-std' title='Lua standard library'><strong>debug</strong></span>
+   <ul>
+     <li><a href="#Functions">Functions</a></li>
+</ul>
+  </li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><a href="../modules/iconv.html"><span class='module-ext title='Lua extension'>iconv</span></a></li>
+      <li><a href="../modules/io.html"><span class='module-std' title='Lua standard library'>io</span></a></li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><a href="../modules/lpeg.html"><span class='module-ext title='Lua extension'>lpeg</span></a></li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><a href="../modules/os.html"><span class='module-std' title='Lua standard library'>os</span></a></li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><a href="../modules/string.html"><span class='module-std' title='Lua standard library'>string</span></a></li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><a href="../manual/install.md.html"><span >Installing</span></a></li>
+      <li><a href="../manual/using.md.html"><span >Running Lua programs on z/OS</span></a></li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><a href="../manual/rexx.md.html"><span >Lua for REXX developers</span></a></li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><a href="../examples/iconvs.lua.html"><span >iconvs.lua</span></a></li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><a href="../examples/pdsdir.lua.html"><span >pdsdir.lua</span></a></li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+</div>
+<div id="content">
+<h1>Module <code>debug</code></h1>
+<p>Debug standard library.</p>
+<p>
+
+</p>
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#debug">debug ()</a></td>
+	<td class="summary">Enters an interactive mode with the user, running each string that
+ the user enters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getfenv">getfenv (o)</a></td>
+	<td class="summary">Returns the environment of object <code>o</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#gethook">gethook (thread)</a></td>
+	<td class="summary">Returns the current hook settings of the thread, as three values: the
+ current hook function, the current hook mask, and the current hook count
+ (as set by the <code>debug.sethook</code> function).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getinfo">getinfo (thread, function, what)</a></td>
+	<td class="summary">Returns a table with information about a function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getlocal">getlocal (thread, level, local)</a></td>
+	<td class="summary">This function returns the name and the value of the local variable with
+ index <code>local</code> of the function at level <code>level</code> of the stack.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getmetatable">getmetatable (object)</a></td>
+	<td class="summary">Returns the metatable of the given <code>object</code> or nil if it does not have
+ a metatable.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getregistry">getregistry ()</a></td>
+	<td class="summary">Returns the registry table (see §3.5).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getupvalue">getupvalue (func, up)</a></td>
+	<td class="summary">This function returns the name and the value of the upvalue with index
+ <code>up</code> of the function <code>func</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setfenv">setfenv (object, table)</a></td>
+	<td class="summary">Sets the environment of the given <code>object</code> to the given <code>table</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sethook">sethook (thread, hook, mask, count)</a></td>
+	<td class="summary">Sets the given function as a hook.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setlocal">setlocal (thread, level, local, value)</a></td>
+	<td class="summary">This function assigns the value <code>value</code> to the local variable with
+ index <code>local</code> of the function at level <code>level</code> of the stack.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setmetatable">setmetatable (object, table)</a></td>
+	<td class="summary">Sets the metatable for the given <code>object</code> to the given <code>table</code> (which
+ can be nil).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setupvalue">setupvalue (func, up, value)</a></td>
+	<td class="summary">This function assigns the value <code>value</code> to the upvalue with index <code>up</code>
+ of the function <code>func</code>.</td>
+	</tr>
+</table>
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "debug"></a>
+    <strong>debug ()</strong>
+    </dt>
+    <dd>
+    Enters an interactive mode with the user, running each string that
+ the user enters.  Using simple commands and other debug facilities,
+ the user can inspect global and local variables, change their values,
+ evaluate expressions, and so on. A line containing only the word <code>cont</code>
+ finishes this function, so that the caller continues its execution.
+ Note that commands for <code>debug.debug</code> are not lexically nested within any
+ function, and so have no direct access to local variables.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getfenv"></a>
+    <strong>getfenv (o)</strong>
+    </dt>
+    <dd>
+    Returns the environment of object <code>o</code>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">o</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "gethook"></a>
+    <strong>gethook (thread)</strong>
+    </dt>
+    <dd>
+    Returns the current hook settings of the thread, as three values: the
+ current hook function, the current hook mask, and the current hook count
+ (as set by the <code>debug.sethook</code> function).
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">thread</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getinfo"></a>
+    <strong>getinfo (thread, function, what)</strong>
+    </dt>
+    <dd>
+    Returns a table with information about a function.  You can give the
+ function directly, or you can give a number as the value of <code>function</code>,
+ which means the function running at level <code>function</code> of the call stack
+ of the given thread: level 0 is the current function (<code>getinfo</code> itself);
+ level 1 is the function that called <code>getinfo</code>; and so on. If <code>function</code>
+ is a number larger than the number of active functions, then <code>getinfo</code>
+ returns nil.</p>
+
+<p> <code>thread</code> and <code>what</code> are optional.</p>
+
+<p> The returned table can contain all the fields returned by <code>lua_getinfo</code>,
+ with the string <code>what</code> describing which fields to fill in. The default for
+ <code>what</code> is to get all information available, except the table of valid
+ lines. If present, the option '<code>f</code>' adds a field named <code>func</code> with
+ the function itself. If present, the option '<code>L</code>' adds a field named
+ <code>activelines</code> with the table of valid lines.
+ For instance, the expression <code>debug.getinfo(1,"n").name</code> returns a table
+ with a name for the current function, if a reasonable name can be found,
+ and the expression <code>debug.getinfo(print)</code> returns a table with all available
+ information about the <code>print</code> function.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">thread</span>
+
+
+
+        </li>
+        <li><span class="parameter">function</span>
+
+
+
+        </li>
+        <li><span class="parameter">what</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getlocal"></a>
+    <strong>getlocal (thread, level, local)</strong>
+    </dt>
+    <dd>
+    This function returns the name and the value of the local variable with
+ index <code>local</code> of the function at level <code>level</code> of the stack.  (The first
+ parameter or local variable has index 1, and so on, until the last active
+ local variable.) The function returns nil if there is no local variable
+ with the given index, and raises an error when called with a <code>level</code> out
+ of range. (You can call <code>debug.getinfo</code> to check whether the level is valid.)
+ Variable names starting with '<code>(</code>' (open parentheses) represent internal
+ variables (loop control variables, temporaries, and C function locals).
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">thread</span>
+
+
+
+        </li>
+        <li><span class="parameter">level</span>
+
+
+
+        </li>
+        <li><span class="parameter">local</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getmetatable"></a>
+    <strong>getmetatable (object)</strong>
+    </dt>
+    <dd>
+    Returns the metatable of the given <code>object</code> or nil if it does not have
+ a metatable.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getregistry"></a>
+    <strong>getregistry ()</strong>
+    </dt>
+    <dd>
+    Returns the registry table (see §3.5).
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getupvalue"></a>
+    <strong>getupvalue (func, up)</strong>
+    </dt>
+    <dd>
+    This function returns the name and the value of the upvalue with index
+ <code>up</code> of the function <code>func</code>.  The function returns nil if there is no
+ upvalue with the given index.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">func</span>
+
+
+
+        </li>
+        <li><span class="parameter">up</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setfenv"></a>
+    <strong>setfenv (object, table)</strong>
+    </dt>
+    <dd>
+    Sets the environment of the given <code>object</code> to the given <code>table</code>.  Returns
+ <code>object</code>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">object</span>
+
+
+
+        </li>
+        <li><span class="parameter">table</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "sethook"></a>
+    <strong>sethook (thread, hook, mask, count)</strong>
+    </dt>
+    <dd>
+    Sets the given function as a hook.  The string <code>mask</code> and the number
+ <code>count</code> describe when the hook will be called. The string mask may have
+ the following characters, with the given meaning:</p>
+
+<ul>
+    <li><code>"c"</code>: the hook is called every time Lua calls a function;</li>
+    <li><code>"r"</code>: the hook is called every time Lua returns from a function;</li>
+    <li><code>"l"</code>: the hook is called every time Lua enters a new line of code.</li>
+</ul>
+
+<p> With a <code>count</code> different from zero, the hook is called after every <code>count</code>
+ instructions.</p>
+
+<p> When called without arguments, <code>debug.sethook</code> turns off the hook.</p>
+
+<p> When the hook is called, its first parameter is a string describing
+ the event that has triggered its call: <code>"call"</code>, <code>"return"</code> (or `"tail
+ return"<code>, when simulating a return from a tail call),</code>"line"`, and
+ <code>"count"</code>. For line events, the hook also gets the new line number as its
+ second parameter. Inside a hook, you can call <code>getinfo</code> with level 2 to
+ get more information about the running function (level 0 is the <code>getinfo</code>
+ function, and level 1 is the hook function), unless the event is `"tail
+ return"`. In this case, Lua is only simulating the return, and a call to
+ <code>getinfo</code> will return invalid data.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">thread</span>
+
+
+
+        </li>
+        <li><span class="parameter">hook</span>
+
+
+
+        </li>
+        <li><span class="parameter">mask</span>
+
+
+
+        </li>
+        <li><span class="parameter">count</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setlocal"></a>
+    <strong>setlocal (thread, level, local, value)</strong>
+    </dt>
+    <dd>
+    This function assigns the value <code>value</code> to the local variable with
+ index <code>local</code> of the function at level <code>level</code> of the stack.  The function
+ returns nil if there is no local variable with the given index, and raises
+ an error when called with a <code>level</code> out of range. (You can call <code>getinfo</code>
+ to check whether the level is valid.) Otherwise, it returns the name of
+ the local variable.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">thread</span>
+
+
+
+        </li>
+        <li><span class="parameter">level</span>
+
+
+
+        </li>
+        <li><span class="parameter">local</span>
+
+
+
+        </li>
+        <li><span class="parameter">value</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setmetatable"></a>
+    <strong>setmetatable (object, table)</strong>
+    </dt>
+    <dd>
+    Sets the metatable for the given <code>object</code> to the given <code>table</code> (which
+ can be nil).
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">object</span>
+
+
+
+        </li>
+        <li><span class="parameter">table</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setupvalue"></a>
+    <strong>setupvalue (func, up, value)</strong>
+    </dt>
+    <dd>
+    This function assigns the value <code>value</code> to the upvalue with index <code>up</code>
+ of the function <code>func</code>.  The function returns nil if there is no upvalue
+ with the given index. Otherwise, it returns the name of the upvalue.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">func</span>
+
+
+
+        </li>
+        <li><span class="parameter">up</span>
+
+
+
+        </li>
+        <li><span class="parameter">value</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>

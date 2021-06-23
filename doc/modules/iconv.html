@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link href="../favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Lua4z is a binary distribution of the Lua programming language, with extensions, for z/OS"/>
+<meta name="keywords" content="Lua, z/OS"/>
+<title>Lua4z: iconv</title>
+<link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+  <a href="http://lua4z.com"><img src="../lua4z-logo.png"/></a>
+  <div id="product_name">Lua4z</div>
+  <div id="product_description">A binary distribution of Lua for z/OS, with batteries</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+<!-- Menu -->
+<div id="navigation">
+<ul>
+<li><a href="../index.html">Welcome</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+      <li><a href="../modules/ispf.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf</span></a></li>
+      <li><a href="../modules/ispf.lmmlist.html"><span class='lua4z-only' title='Lua4z-only extension'>ispf.lmmlist</span></a></li>
+      <li><a href="../modules/bit32.html"><span class='module-std' title='Lua standard library'>bit32</span></a></li>
+      <li><a href="../modules/coroutine.html"><span class='module-std' title='Lua standard library'>coroutine</span></a></li>
+      <li><a href="../modules/debug.html"><span class='module-std' title='Lua standard library'>debug</span></a></li>
+      <li><a href="../modules/global.html"><span class='module-std' title='Lua standard library'>global</span></a></li>
+      <li><span class='module-ext title='Lua extension'><strong>iconv</strong></span>
+   <ul>
+     <li><a href="#Functions">Functions</a></li>
+</ul>
+  </li>
+      <li><a href="../modules/io.html"><span class='module-std' title='Lua standard library'>io</span></a></li>
+      <li><a href="../modules/lfs.html"><span class='module-ext title='Lua extension'>lfs</span></a></li>
+      <li><a href="../modules/lpeg.html"><span class='module-ext title='Lua extension'>lpeg</span></a></li>
+      <li><a href="../modules/math.html"><span class='module-std' title='Lua standard library'>math</span></a></li>
+      <li><a href="../modules/os.html"><span class='module-std' title='Lua standard library'>os</span></a></li>
+      <li><a href="../modules/package.html"><span class='module-std' title='Lua standard library'>package</span></a></li>
+      <li><a href="../modules/string.html"><span class='module-std' title='Lua standard library'>string</span></a></li>
+      <li><a href="../modules/table.html"><span class='module-std' title='Lua standard library'>table</span></a></li>
+</ul>
+<h2>Manual</h2>
+<ul class="nowrap">
+      <li><a href="../manual/introduction.md.html"><span >Introduction</span></a></li>
+      <li><a href="../manual/install.md.html"><span >Installing</span></a></li>
+      <li><a href="../manual/using.md.html"><span >Running Lua programs on z/OS</span></a></li>
+      <li><a href="../manual/syntax.md.html"><span >Complete syntax of Lua</span></a></li>
+      <li><a href="../manual/extensions.md.html"><span >Extensions included with Lua4z</span></a></li>
+      <li><a href="../manual/rexx.md.html"><span >Lua for REXX developers</span></a></li>
+      <li><a href="../manual/support.md.html"><span >Support</span></a></li>
+      <li><a href="../manual/version.md.html"><span >Version history</span></a></li>
+      <li><a href="../manual/license.md.html"><span >Software license agreement</span></a></li>
+      <li><a href="../manual/contact.md.html"><span >Contact</span></a></li>
+      <li><a href="../manual/links.md.html"><span >Links</span></a></li>
+      <li><a href="../manual/credits.md.html"><span >Credits</span></a></li>
+      <li><a href="../manual/trademarks.md.html"><span >Trademarks</span></a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+      <li><a href="../examples/fileio.lua.html"><span >fileio.lua</span></a></li>
+      <li><a href="../examples/hello.lua.html"><span >hello.lua</span></a></li>
+      <li><a href="../examples/iconvs.lua.html"><span >iconvs.lua</span></a></li>
+      <li><a href="../examples/ivp.lua.html"><span >ivp.lua</span></a></li>
+      <li><a href="../examples/ksds.lua.html"><span >ksds.lua</span></a></li>
+      <li><a href="../examples/luapath.lua.html"><span >luapath.lua</span></a></li>
+      <li><a href="../examples/paths.lua.html"><span >paths.lua</span></a></li>
+      <li><a href="../examples/pdsdir.lua.html"><span >pdsdir.lua</span></a></li>
+      <li><a href="../examples/threads.lua.html"><span >threads.lua</span></a></li>
+</ul>
+</div>
+<div id="content">
+<h1>Module <code>iconv</code></h1>
+<p>POSIX iconv binding for Lua.</p>
+<p> Converts strings from one codeset to another.
+ For more information, see the original <a href="http://ittner.github.io/lua-iconv/">Lua-iconv documentation</a>.</p>
+
+<p> For implementation-specific details of each function, see the corresponding z/OS C runtime library functions.</p>
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#iconv">iconv (converter, string)</a></td>
+	<td class="summary">Converts a string from one codeset to another.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#new">new (to, from)</a></td>
+	<td class="summary">Create a conversion descriptor that you can then use with the <code>iconv</code> function to convert a string from one codeset to another.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#open">open (to, from)</a></td>
+	<td class="summary">A synonym for the <a href="../modules/iconv.html#new">new</a> function.</td>
+	</tr>
+</table>
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "iconv"></a>
+    <strong>iconv (converter, string)</strong>
+    </dt>
+    <dd>
+    Converts a string from one codeset to another. </p>
+
+<p> This function calls the C runtime library function <code>iconv()</code>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">converter</span>
+         A conversion descriptor created previously by the <code>iconv</code> function.
+        </li>
+        <li><span class="parameter">string</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string that you want to convert.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+         Two arguments: the converted string and an error code.
+ The error code has one of the following values:
+ <table>
+ <caption><code>iconv</code> error codes</caption>
+ <tr>
+ <th>Error code</th>
+ <th>Description</th>
+ </tr>
+ <tr>
+ <td><code>nil</code></td>
+ <td>No error. Conversion was successful.</td>
+ </tr>
+ <tr>
+ <td><code>iconv.ERROR_NO_MEMORY</code></td>
+ <td>Failed to allocate enough memory in the conversion process.</td>
+ </tr>
+ <tr>
+ <td><code>iconv.ERROR_INVALID</code></td>
+ <td>An invalid character was found in the input sequence.</td>
+ </tr>
+ <tr>
+ <td><code>iconv.ERROR_INCOMPLETE</code></td>
+ <td>An incomplete character was found in the input sequence.</td>
+ </tr>
+ <tr>
+ <td><code>iconv.ERROR_FINALIZED</code></td>
+ <td>Trying to use an already-finalized converter.
+ This usually means that the user was tweaking the garbage collector private methods.</td>
+ </tr>
+ <tr>
+ <td><code>iconv.ERROR_UNKNOWN</code></td>
+ <td>There was an unknown error.</td>
+ </tr>
+ </table>
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxbd00/iconvp.htm"><strong>iconv()</strong> z/OS C runtime library function</a></li>
+         <li><a href="../examples/iconvs.lua.html#">iconvs.lua</a></li>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="comment">-- Assumes that you have created a conversion descriptor named converter
+</span> <span class="keyword">local</span> before = <span class="string">"Transliterate me"</span>
+ <span class="keyword">local</span> after = converter:iconv(before)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "new"></a>
+    <strong>new (to, from)</strong>
+    </dt>
+    <dd>
+    Create a conversion descriptor that you can then use with the <code>iconv</code> function to convert a string from one codeset to another. </p>
+
+<p> For a list of supported codesets, see the <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.cbcpx01/cbc1p2563.htm">IBM documentation</a>.
+
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">to</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         A string that specifies the codeset that you want to convert from.</p>
+
+<p> To enable character transliteration,
+ append the string "//TRANSLIT" to the value of this parameter.</p>
+
+<p> To ignore invalid characters in the input string to the <code>iconv</code> function,
+ append the string "//IGNORE" to the value of this parameter.
+        </li>
+        <li><span class="parameter">from</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         A string that specifies the codeset that you want to convert to.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        A conversion descriptor that describes a conversion between two <a href="http://pubs.opengroup.org/onlinepubs/007908799/xbd/glossary.html#tag_004_000_053">codesets</a>,
+ or <code>nil</code> on error.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxbd00/iconvop.htm"><strong>iconv_open()</strong> z/OS C runtime library function</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> iconv = <span class="global">require</span>(<span class="string">"iconv"</span>)
+ <span class="comment">-- Specify codesets
+</span> <span class="keyword">local</span> from = <span class="string">"IBM-1047"</span>
+ <span class="keyword">local</span> to = <span class="string">"ISO8859-1"</span>
+ <span class="comment">-- Create conversion descriptor with transliteration option
+</span> <span class="keyword">local</span> converter = iconv.new(to .. <span class="string">"//TRANSLIT"</span>, from) </pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "open"></a>
+    <strong>open (to, from)</strong>
+    </dt>
+    <dd>
+    A synonym for the <a href="../modules/iconv.html#new">new</a> function.
+
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+</div> <!-- id="container" -->
+<div id="footer">
+generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a>
+</div> <!-- id="footer" -->
+</body>
+</html>
